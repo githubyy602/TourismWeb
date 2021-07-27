@@ -15,7 +15,7 @@
 
 ```
 com
-    └─daq
+    └─yangy.web
         └─springboot
             │  SpringbootApplication.java  #启动类
             │
@@ -25,15 +25,6 @@ com
             │      RedisConfig.java     #redis序列化配置模板
             │      ShiroConfig.java     #shiro配置文件
             │      SwaggerConfig.java   #Swagger配置文件
-            │
-            ├─notes     #笔记,记录一些配置的过程
-            │      druid.md
-            │      jedis.md
-            │      JSR303.md
-            │      mail.md
-            │      mybatis-plus.md
-            │      Shiro.md
-            │      Swagger.md
             ├─realm  #shiro的认证和授权规则
             │      AccountRealm.java          
             │
@@ -75,8 +66,4 @@ com
 16. 将QQ邮箱的 `POP3/SMTP` 服务开启,获取到邮箱秘钥
 18. 在`yml`配置文件中加入 `用户名`，`邮箱秘钥`，服务器地址（有默认值） 以及加密的配置。
 19. 将方法封装在工具类中，使用的时候调用`MailUtil`的方法，写入消息和发送方。
-
-
-# :telephone:联系我
-- 如果有想要加入的童鞋，我们可以一起把这个脚手架做得更好，方便以后开发，提出你想要集成或者你觉得有意思的组件吧。欢迎Q我`2829025551`。
 
