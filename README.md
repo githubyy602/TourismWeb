@@ -64,8 +64,8 @@ com
 18. 在`yml`配置文件中加入 `用户名`，`邮箱秘钥`，服务器地址（有默认值） 以及加密的配置。
 19. 将方法封装在工具类中，使用的时候调用`MailUtil`的方法，写入消息和发送方。
 
-bak.20210728
 下述配置静态资源可用
-spring
+- :spring
     resources:
         static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/
+
