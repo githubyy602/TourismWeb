@@ -15,7 +15,7 @@
 
 ```
 com
-    └─daq
+    └─yangy.web
         └─springboot
             │  SpringbootApplication.java  #启动类
             │
@@ -25,24 +25,12 @@ com
             │      RedisConfig.java     #redis序列化配置模板
             │      ShiroConfig.java     #shiro配置文件
             │      SwaggerConfig.java   #Swagger配置文件
-            │
-            ├─notes     #笔记,记录一些配置的过程
-            │      druid.md
-            │      jedis.md
-            │      JSR303.md
-            │      mail.md
-            │      mybatis-plus.md
-            │      Shiro.md
-            │      Swagger.md
             ├─realm  #shiro的认证和授权规则
             │      AccountRealm.java          
             │
             └─utils  #工具类
                     SendMailUtil.java #发送邮件的工具类
 ```
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200722161439539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDg2MTM5OQ==,size_16,color_FFFFFF,t_70)
-
 
 # :notebook_with_decorative_cover:使用方法
 - 将项目导入`IDEA`，用`sql`文件建好数据库。 	:gift_heart:
@@ -76,7 +64,8 @@ com
 18. 在`yml`配置文件中加入 `用户名`，`邮箱秘钥`，服务器地址（有默认值） 以及加密的配置。
 19. 将方法封装在工具类中，使用的时候调用`MailUtil`的方法，写入消息和发送方。
 
-
-# :telephone:联系我
-- 如果有想要加入的童鞋，我们可以一起把这个脚手架做得更好，方便以后开发，提出你想要集成或者你觉得有意思的组件吧。欢迎Q我`2829025551`。
-
+bak.20210728
+下述配置静态资源可用
+spring
+    resources:
+        static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/
