@@ -13,9 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -76,4 +83,55 @@ public class TestController {
         return errorMap;
     }
 
+     public static void main(String[] args) {
+        Person p1=new Person("海绵宝宝",18);
+        Person p2=new Person("派大星",19);
+        Person p3=new Person("蟹老板",20);
+        Person p4=new Person("海绵宝宝",18);
+        
+        Set<Person> p=new HashSet<Person>();
+        p.add(p1);
+        p.add(p2);
+        p.add(p3);
+        p.add(p4);     
+        
+        //先不重写Person的equals和hashCode方法，看下HashSet存储情况
+        for (Person ps:p) {
+            System.out.println(ps);
+        }
+    }
+    
+    static class Person {
+        String name;
+        int age;
+
+        public Person(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        @Override
+        public String toString() {          //打印时输出内容，否则输出地址
+            return "Person{" +
+                    "name='" + name + '\'' +
+                    ", age=" + age +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Person person = (Person) o;
+            return age == person.age &&
+                    Objects.equals(name, person.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name, age);
+        }
+        
+    }
+    
 }

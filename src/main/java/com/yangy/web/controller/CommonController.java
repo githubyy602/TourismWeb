@@ -1,5 +1,6 @@
 package com.yangy.web.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,13 +22,10 @@ public class CommonController {
     }
 	
 	@GetMapping(value = {"/","/index"})
-	public String getIndex(@PathVariable("url") String url){
+	public String getIndex(){
 		return "f_index";
 	}
 	
-	@GetMapping(value = {"/{url}"})
-	public String toPage(@PathVariable("url") String url){
-		return url;
-	}
+	
 	
 }

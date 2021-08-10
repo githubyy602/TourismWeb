@@ -2,6 +2,8 @@ package com.yangy.web.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -21,6 +23,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="TbPicture对象", description="图片表")
+@TableName("tb_picture")
 public class Picture implements Serializable {
 
     private static final long serialVersionUID=1L;

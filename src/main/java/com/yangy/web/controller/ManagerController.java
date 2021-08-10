@@ -27,8 +27,8 @@ public class ManagerController {
     @Autowired
     private MailUtil mailUtil;
 
-    @GetMapping(value = {"/","/login"})
-    public String redirect(@PathVariable("url") String url){
+    @GetMapping(value = {"","/","/login"})
+    public String redirect(){
         return "login";
     }
 
@@ -41,7 +41,7 @@ public class ManagerController {
             //没有异常，来到首页
             subject.login(token);
             User user = (User) subject.getPrincipal();
-            subject.getSession().setAttribute("user",user);
+            subject.getSession().setAttribute("admin",user);
             return "f_index";
         } catch (UnknownAccountException e) {
             //用户名错误，借助model将错误信息带给前端

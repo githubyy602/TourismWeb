@@ -9,7 +9,8 @@ import lombok.Data;
  */
 public enum  ResponseConstant {
 	PARAM_ERROR(2000,"参数错误"),
-	OPERATE_FAIL(2001,"操作失败");
+	OPERATE_FAIL(2001,"操作失败"),
+	USER_NAME_ALREADY_EXIST(2002,"用户名已存在"),;
 
 	ResponseConstant(int code, String message) {
 		this.code = code;

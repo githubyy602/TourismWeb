@@ -31,7 +31,7 @@ public class AccountRealm extends AuthorizingRealm {
         //客户端传过来的对象和密码，自动封装在token中，
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         //根据用户名进行查询，并且判断
-        User user = userMapper.selectOne(new QueryWrapper<User>().eq("login_name", String.valueOf(token.getPassword())));
+        User user = userMapper.selectOne(new QueryWrapper<User>().eq("login_name", String.valueOf(token.getUsername())));
         if(Objects.nonNull(user)){
             //用户名不为空，继续验证密码
             return new SimpleAuthenticationInfo(user,user.getPassword(),getName());
@@ -62,6 +62,7 @@ public class AccountRealm extends AuthorizingRealm {
                 info.setRoles(roles);
             }
         }
+        
         return info;
     }
 

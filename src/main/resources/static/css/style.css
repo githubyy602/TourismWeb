@@ -94,15 +94,24 @@ ul.withArrow li{
 	
 }
 ul.withArrow li span{
-	margin-right: 10px;
-	font-weight: 700;
-	color: #a0b005;
-	border: 1px solid;
-	padding: 4px 8px;
-	font-size: 11px;
-	border-radius: 50%;
-	height: 20px;
-	width: 20px;
+	
+margin-right: 10px;
+	
+font-weight: 700;
+	
+color: #a0b005;
+	
+border: 1px solid;
+	
+padding: 4px 8px;
+	
+font-size: 11px;
+	
+border-radius: 50%;
+	
+height: 20px;
+	
+width: 20px;
 }
 .widget {
     color: rgba(255, 255, 255, 0.77);
@@ -690,14 +699,14 @@ section.hero-text h1{
 /* page headline
 ==================================== */
 
-#inner-headline{background: url('../img/img01.jpg') center -294px no-repeat;margin: 0;background-size: cover;padding: 36px 0;position: relative;width: 100%;}
+#inner-headline{background: url('../img/pengcheng_bg1.jpg') center -294px no-repeat;margin: 0;background-size: cover;padding: 36px 0;position: relative;width: 100%;}
 
 #inner-headline:before {
     content: '';
     position: absolute;
-    z-index: 2;
+    z-index: -2;
     width: 100%;
-    background: rgba(193, 209, 41, 0.58);
+    /*background: rgba(193, 209, 41, 0.58);*/
     height: 106%;
     margin-top: -46px;
 }
