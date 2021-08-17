@@ -35,6 +35,7 @@ public class AutoCode {
         gc.setOpen(false);
         gc.setFileOverride(false); // 是否覆盖
         gc.setServiceName("%sService"); // 去Service的I前缀
+        gc.setServiceImplName("%sServiceImpl");
         gc.setIdType(IdType.ID_WORKER);
         gc.setDateType(DateType.ONLY_DATE);
         gc.setSwagger2(true);
@@ -62,11 +63,17 @@ public class AutoCode {
 
         //4、策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("tb_user","tb_picture","tb_attractions_info"); // 设置要映射的表名
+        strategy.setInclude("tb_leave_message","tb_line","tb_members",
+                "tb_order","tb_pay_record",
+                "tb_picture","tb_user_members","tb_view"); // 设置要映射的表名
+        
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true); // 自动lombok；
         strategy.setLogicDeleteFieldName("deleted");
+        
+        strategy.setTablePrefix("tb_");//去除表的前缀 
+        
         // 自动填充配置
         TableFill gmtCreate = new TableFill("gmt_create", FieldFill.INSERT);
         TableFill gmtModified = new TableFill("gmt_modified", FieldFill.INSERT_UPDATE);

@@ -52,6 +52,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@GetMapping(value = {"/","/index"})
+	public String getIndex(){
+		return "f_index";
+	}
+	
 	@GetMapping(value = "/register.do")
 	public String toRegisterPage(){
 		return "f_register";
@@ -106,41 +111,6 @@ public class UserController {
 		model.addAttribute("message",ResponseConstant.OPERATE_FAIL.getMessage());
 		return "f_register"; 
 	}
-	
-	/**
-	* @Author Yangy
-	* @Description 游客用户登录
-	* @Date 20:18 2021/8/2
-	* @Param [username, password, model]
-	* @return java.lang.String
-	**/
-	@PostMapping("/login.do")
-    public String login(String username, String password, Model model){
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(username,Md5Util.md5(StringUtils.join(password,CommonConstants.PASSWORD_SALT)));
-        //把传进来的用户名和密码封装成token，通过subject交给shiro去做
-        try {
-            //没有异常，来到首页
-            subject.login(token);
-            User user = (User) subject.getPrincipal();
-            subject.getSession().setAttribute("tourist",user);
-            return "f_index";
-        }catch(IncorrectCredentialsException ice){
-            model.addAttribute("msg","用户名或密码不正确！");
-        }catch(UnknownAccountException uae){
-        	model.addAttribute("msg","未知账户！");
-        }catch(LockedAccountException lae){
-        	model.addAttribute("msg","账户已锁定！");
-        }catch(ExcessiveAttemptsException eae){
-        	model.addAttribute("msg","用户名或密码错误次数太多！");
-        }catch(AuthenticationException ae){
-            model.addAttribute("msg","验证未通过！");
-        }catch (Exception e) {
-        	model.addAttribute("msg","验证未通过！");
-		}
-		
-		return "f_login";
-    }
     
 }
 

@@ -1,13 +1,21 @@
 package com.yangy.web.controller;
 
-import org.springframework.stereotype.Controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @Author: Yangy
- * @Date: 2021/7/30 15:58
- * @Description 订单控制器
+ * <p>
+ * 订单表 前端控制器
+ * </p>
+ *
+ * @author Yangy
+ * @since 2021-08-12
  */
-@Controller
+@RestController
+@RequestMapping("/order")
 public class OrderController {
-	
+
 }
+

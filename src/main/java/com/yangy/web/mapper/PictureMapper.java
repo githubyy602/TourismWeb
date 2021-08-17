@@ -2,7 +2,6 @@ package com.yangy.web.mapper;
 
 import com.yangy.web.entity.Picture;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -10,9 +9,8 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author Yangy
- * @since 2021-07-27
+ * @since 2021-08-12
  */
-@Mapper
 public interface PictureMapper extends BaseMapper<Picture> {
 
 }

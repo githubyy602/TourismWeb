@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
 <head>
     <meta charset="utf-8">
@@ -7,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
+    <link rel="icon" href="/img/favicon-now.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/favicon-now.ico" type="image/x-icon" />
     <!-- css -->
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/css/fancybox/jquery.fancybox.css" rel="stylesheet">
     <link href="/css/flexslider.css" rel="stylesheet"/>
     <link href="/css/style.css" rel="stylesheet"/>
-
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -22,15 +22,14 @@
 <body>
 <div id="wrapper" class="home-page">
     <div class="topbar">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="pull-left hidden-xs"><i class="fa fa-clock-o"></i><span>Mon - Sat 8.00 - 18.00. Sunday CLOSED</span>
-                    </p>
-                    <p class="pull-right"><i class="fa fa-phone"></i>Tel No. (+001) 123-456-789</p>
-                </div>
-            </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <p class="pull-left hidden-xs">欢迎致电</p>
+            <p class="pull-right"><i class="fa fa-phone"></i>座机号码： (+0755) 8888-8888</p>
+          </div>
         </div>
+      </div>
     </div>
     <!-- start header -->
     <header>
@@ -72,7 +71,7 @@
         <div id="main-slider" class="flexslider">
             <ul class="slides">
                 <li>
-                    <img src="img/slides/1.jpg" alt=""/>
+                    <img src="/img/slides/1.jpg" alt=""/>
                     <div class="flex-caption">
                         <h3>Adventure Travel</h3>
                         <p>Since we love a great adventure</p>
@@ -80,7 +79,7 @@
                     </div>
                 </li>
                 <li>
-                    <img src="img/slides/2.jpg" alt=""/>
+                    <img src="/img/slides/2.jpg" alt=""/>
                     <div class="flex-caption">
                         <h3>Enjoy the Journey</h3>
                         <p>Stop worrying and enjoy the trip</p>
@@ -126,7 +125,7 @@
                 <div class="col-md-4">
                     <div class="box-content">
                         <a href="f_details.html">
-                            <img class="img-responsive" src="img/img01.jpg" alt="">
+                            <img class="img-responsive" src="/img/img01.jpg" alt="">
                             <h3>England <span class="price pull-right">$230</span></h3>
                             <strong>Istanbul, Antalya, Ephesus 8 days</strong>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur
@@ -137,7 +136,7 @@
                 <div class="col-md-4">
                     <div class="box-content">
                         <a href="f_details.html">
-                            <img class="img-responsive" src="img/img02.jpg" alt="">
+                            <img class="img-responsive" src="/img/img02.jpg" alt="">
                             <h3>Italy <span class="price pull-right">$140</span></h3>
                             <strong>Istanbul, Antalya, Ephesus 8 days</strong>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur
@@ -148,7 +147,7 @@
                 <div class="col-md-4">
                     <div class="box-content">
                         <a href="f_details.html">
-                            <img class="img-responsive" src="img/img03.jpg" alt="">
+                            <img class="img-responsive" src="/img/img03.jpg" alt="">
                             <h3>Russia <span class="price pull-right">$125</span></h3>
                             <strong>Istanbul, Antalya, Ephesus 8 days</strong>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur
@@ -162,7 +161,7 @@
                 <div class="col-md-4">
                     <div class="box-content">
                         <a href="f_details.html">
-                            <img class="img-responsive" src="img/img04.jpg" alt="">
+                            <img class="img-responsive" src="/img/img04.jpg" alt="">
                             <h3>France <span class="price pull-right">$230</span></h3>
                             <strong>Istanbul, Antalya, Ephesus 8 days</strong>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur
@@ -173,7 +172,7 @@
                 <div class="col-md-4">
                     <div class="box-content">
                         <a href="f_details.html">
-                            <img class="img-responsive" src="img/img05.jpg" alt="">
+                            <img class="img-responsive" src="/img/img05.jpg" alt="">
                             <h3>Germany <span class="price pull-right">$140</span></h3>
                             <strong>Istanbul, Antalya, Ephesus 8 days</strong>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur
@@ -184,7 +183,7 @@
                 <div class="col-md-4">
                     <div class="box-content">
                         <a href="f_details.html">
-                            <img class="img-responsive" src="img/img06.jpg" alt="">
+                            <img class="img-responsive" src="/img/img06.jpg" alt="">
                             <h3>Spain <span class="price pull-right">$125</span></h3>
                             <strong>Istanbul, Antalya, Ephesus 8 days</strong>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur
@@ -293,7 +292,7 @@
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="about-image">
-                        <img src="img/about.png" alt="About Images">
+                        <img src="/img/about.png" alt="About Images">
                     </div>
                 </div>
             </div>
@@ -434,7 +433,7 @@
                                 consectetur adipisicing sit amet, consectetur adipisicing elit, of them jean shorts sed
                                 magna aliqua. Lorem ipsum dolor met.</p></blockquote>
                             <div class="carousel-info">
-                                <img alt="" src="img/team4.jpg" class="pull-left">
+                                <img alt="" src="/img/team4.jpg" class="pull-left">
                                 <div class="pull-left">
                                     <span class="testimonials-name">Marc Cooper</span>
                                     <span class="testimonials-post">Technical Director</span>

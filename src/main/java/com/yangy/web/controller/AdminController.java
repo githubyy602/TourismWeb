@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @Slf4j
 @RequestMapping("/admin")
-public class ManagerController {
+public class AdminController {
 
     @Autowired
     private MailUtil mailUtil;
@@ -30,30 +30,6 @@ public class ManagerController {
     @GetMapping(value = {"","/","/login"})
     public String redirect(){
         return "login";
-    }
-
-    @PostMapping("/login.do")
-    public String login(String username, String password, Model model){
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(username,password);
-        //把传进来的用户名和密码封装成token，通过subject交给shiro去做
-        try {
-            //没有异常，来到首页
-            subject.login(token);
-            User user = (User) subject.getPrincipal();
-            subject.getSession().setAttribute("admin",user);
-            return "f_index";
-        } catch (UnknownAccountException e) {
-            //用户名错误，借助model将错误信息带给前端
-            log.error("用户名错误！\n{}",e);
-            model.addAttribute("msg","用户名错误");
-            return "login";
-        } catch (IncorrectCredentialsException e) {
-            //密码不合法，借助model将错误信息带给前端
-            log.error("密码错误！\n{}",e);
-            model.addAttribute("msg","密码错误");
-            return "login";
-        }
     }
 
     //未授权的页面

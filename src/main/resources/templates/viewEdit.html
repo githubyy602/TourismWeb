@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<link rel="icon" href="/img/favicon-now.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/img/favicon-now.ico" type="image/x-icon" />
+<title></title>
+<link rel="stylesheet" href="/css/pintuer.css">
+<link rel="stylesheet" href="/css/admin.css">
+<script src="/js/jquery.js"></script>
+<script src="/js/pintuer.js"></script>
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/layui/layui.all.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加内容</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" name="viewForm" id="viewForm" action="/view/createView.do">  
+      <div class="form-group">
+        <div class="label">
+          <label>景点标题：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" value="" th:value="${view.viewTitle}" name="viewTitle" maxlength="100" data-validate="required:请输入标题" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>图片：</label>
+        </div>
+        <div class="field">
+          <!--<input type="text" id="url1" name="img" class="input tips" style="width:25%; float:left;"  value=""  data-toggle="hover" data-place="right" data-image="" />-->
+          <div id="box" th:if="${view.pictureUrl != null and view.pictureUrl != ''}" ><img th:src="${'/upload/img/'+view.pictureUrl}"  alt="" width="100" height="70" style="margin-bottom: 5px;" /></div>
+          <input type="file" accept="image/*" class="button bg-blue" id="upload" value="+ 浏览上传"  style="float:left;">
+          <div class="tipss">图片尺寸：500*500</div>
+          <input type="hidden" name="pictureId" id="pictureId" th:value="${view.pictureId}"/>
+        </div>
+      </div>     
+      
+        <div class="form-group">
+          <div class="label">
+            <label>景点类型：</label>
+          </div>
+          <div class="field">
+            <select name="type" class="input w50" >
+              <option value="">请选择</option>
+              <option th:selected="${view.type == 1}" value="1">收费</option>
+              <option th:selected="${view.type == 2}" value="2">免费</option>
+            </select>
+            <div class="tips"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="label">
+            <label>路线选择：</label>
+          </div>
+          <div class="field">
+            <select name="lineId" class="input w50" >
+              <option value="">请选择</option>
+              <option th:selected="${view.lineId == 1}" value="1">路线1</option>
+              <option th:selected="${view.lineId == 2}" value="2">路线2</option>
+            </select>
+            <div class="tips"></div>
+          </div>
+        </div>
+        <!--<div class="form-group">-->
+          <!--<div class="label">-->
+            <!--<label>其他属性：</label>-->
+          <!--</div>-->
+          <!--<div class="field" style="padding-top:8px;"> -->
+            <!--首页 <input id="ishome"  type="checkbox" />-->
+            <!--推荐 <input id="isvouch"  type="checkbox" />-->
+            <!--置顶 <input id="istop"  type="checkbox" /> -->
+         <!---->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</if>-->
+      <div class="form-group">
+        <div class="label">
+          <label>景点描述：</label>
+        </div>
+        <div class="field">
+          <textarea class="input" name="viewIntroduce" maxlength="1000" style=" height:90px;" th:text="${view.viewIntroduce}"></textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <!--<div class="form-group">-->
+        <!--<div class="label">-->
+          <!--<label>内容：</label>-->
+        <!--</div>-->
+        <!--<div class="field">-->
+          <!--<textarea name="content" class="input" style="height:450px; border:1px solid #ddd;"></textarea>-->
+          <!--<div class="tips"></div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div class="form-group">
+        <div class="label">
+          <label>景点门票价格：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="price" maxlength="10" value="" th:value="${view.price}" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>景点联系电话：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="phone" maxlength="15" value="" th:value="${view.phone}"/>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="form-group">
+        <div class="label">
+          <label>景点负责人：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="manager" maxlength="20" value="" th:value="${view.manager}"/>
+        </div>
+      </div>
+      <!--<div class="form-group">-->
+        <!--<div class="label">-->
+          <!--<label>内容关键字：</label>-->
+        <!--</div>-->
+        <!--<div class="field">-->
+          <!--<input type="text" class="input" name="s_keywords" value=""/>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<div class="label">-->
+          <!--<label>关键字描述：</label>-->
+        <!--</div>-->
+        <!--<div class="field">-->
+          <!--<textarea type="text" class="input" name="s_desc" style="height:80px;"></textarea>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<div class="label">-->
+          <!--<label>排序：</label>-->
+        <!--</div>-->
+        <!--<div class="field">-->
+          <!--<input type="text" class="input w50" name="sort" value="0"  data-validate="number:排序必须为数字" />-->
+          <!--<div class="tips"></div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<div class="label">-->
+          <!--<label>发布时间：</label>-->
+        <!--</div>-->
+        <!--<div class="field"> -->
+          <!--<script src="/js/laydate/laydate.js"></script>-->
+          <!--<input type="text" class="laydate-icon input w50" name="datetime" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" value=""  data-validate="required:日期不能为空" style="padding:10px!important; height:auto!important;border:1px solid #ddd!important;" />-->
+          <!--<div class="tips"></div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<div class="label">-->
+          <!--<label>作者：</label>-->
+        <!--</div>-->
+        <!--<div class="field">-->
+          <!--<input type="text" class="input w50" name="authour" value=""  />-->
+          <!--<div class="tips"></div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<div class="label">-->
+          <!--<label>点击次数：</label>-->
+        <!--</div>-->
+        <!--<div class="field">-->
+          <!--<input type="text" class="input w50" name="views" value="" data-validate="member:只能为数字"  />-->
+          <!--<div class="tips"></div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+          
+          <a class="button bg-back icon-power-off" type="submit" href="/view/list.do"> 返回</a>
+          
+          <input type="hidden" id="id" name="id" th:value="${view.id}"/>
+          <input type="hidden" id="msgText" th:value="${msg}" />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+
+<script>
+  var msg = document.getElementById("msgText").value;
+  if(msg != null && msg != ''){
+      
+      layer.msg(msg,{offset: '100px'});
+  }
+  
+  document.getElementById('upload').addEventListener('change', function (event) {
+    var $file = event.currentTarget;
+    var formData = new FormData();
+    var file = $file.files;
+    formData.append("viewImg", file[0]);
+    $.ajax({
+        url: '/picture/uploadPicture.do',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        // 下面三个属性一定要加
+        processData: false,//用于对data参数进行序列化处理 这里必须false
+        contentType: false, //必须
+        cache:false//不使用缓存
+    })
+    .done(data => {
+        if(data == null || data == ''){
+            layer.msg("图片上传失败",{offset: '100px'});
+        }else {
+          document.getElementById('pictureId').value = data;
+          layer.msg("上传成功",{offset: '100px'});
+        }
+        
+    }).fail(data => {
+        console.log(data);
+    });
+    
+    //表单提交
+    // $(function(){
+    //   $("#viewForm").ajaxForm({
+    //       //定义返回JSON数据，还包括xml和script格式
+    //       type: 'POST',
+    //       dataType:'json',
+    //       beforeSend: function() {
+    //           //表单提交前做表单验证
+    //       },
+    //       success: function(data) {
+    //           //提交成功后调用
+    //           alert(data);
+    //           if(data == true || data == 'true'){
+    //               layer.msg("操作成功！",{offset: '100px'});
+    //               debugger;
+    //               windows.location.href = "/view/list.do";
+    //           }else{
+    //               layer.msg("操作失败！",{offset: '100px'});
+    //           }
+    //       }
+    //   });
+    // });
+    
+    //下拉选项赋值
+    $('select').change(function () {
+        $(this).attr("title",$(this).find("option:selected").val());
+    })
+    
+});
+</script>
+
+</html>
