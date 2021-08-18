@@ -32,3 +32,8 @@ com
     resources:
         static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/
 
+# 管理员后台
+http://localhost:9001/admin
+账号密码：shenmei/shenmei
+
+# 游客客户web登录页

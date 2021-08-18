@@ -61,9 +61,8 @@
           </div>
           <div class="field">
             <select name="lineId" class="input w50" >
-              <option value="">请选择</option>
-              <option th:selected="${view.lineId == 1}" value="1">路线1</option>
-              <option th:selected="${view.lineId == 2}" value="2">路线2</option>
+              <option value="0">请选择</option>
+              <option th:each="line : ${lineList}" th:value="${line.id}" th:text="${line.lineTitle}" th:selected="${view.lineId == line.id}" />
             </select>
             <div class="tips"></div>
           </div>

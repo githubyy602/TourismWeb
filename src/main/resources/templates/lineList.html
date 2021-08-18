@@ -23,74 +23,36 @@
         </div>
         <div class="padding border-bottom">
             <ul class="search" style="padding-left:10px;">
-                <!--<li>搜索：</li>-->
-                <!--<li>首页-->
-                <!--<select name="s_ishome" class="input" onchange="changesearch()" style="width:60px; line-height:17px; display:inline-block">-->
-                <!--<option value="">选择</option>-->
-                <!--<option value="1">是</option>-->
-                <!--<option value="0">否</option>-->
-                <!--</select>-->
-                <!--&nbsp;&nbsp;-->
-                <!--推荐-->
-                <!--<select name="s_isvouch" class="input" onchange="changesearch()"  style="width:60px; line-height:17px;display:inline-block">-->
-                <!--<option value="">选择</option>-->
-                <!--<option value="1">是</option>-->
-                <!--<option value="0">否</option>-->
-                <!--</select>-->
-                <!--&nbsp;&nbsp;-->
-                <!--置顶-->
-                <!--<select name="s_istop" class="input" onchange="changesearch()"  style="width:60px; line-height:17px;display:inline-block">-->
-                <!--<option value="">选择</option>-->
-                <!--<option value="1">是</option>-->
-                <!--<option value="0">否</option>-->
-                <!--</select>-->
-                <!--</li>-->
-                <!--<if condition="$iscid eq 1">-->
-                <!--<li>-->
-                <!--<select name="cid" class="input" style="width:200px; line-height:17px;" onchange="changesearch()">-->
-                <!--<option value="">请选择分类</option>-->
-                <!--<option value="">产品分类</option>-->
-                <!--<option value="">产品分类</option>-->
-                <!--<option value="">产品分类</option>-->
-                <!--<option value="">产品分类</option>-->
-                <!--</select>-->
-                <!--</li>-->
-                <!--</if>-->
                 <li>
                     <input type="text" placeholder="请输入搜索关键字" name="keywords" id="keywords" class="input"
                            style="width:250px; line-height:17px;display:inline-block"/>
                     <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()"> 搜索</a>
                 </li>
-                <li><a class="button border-main icon-plus-square-o" href="/view/edit.do"> 添加内容</a></li>
+                <li><a class="button border-main icon-plus-square-o" href="/line/edit.do"> 添加内容</a></li>
             </ul>
         </div>
         <table class="table table-hover text-center" id="refreshList" th:fragment="refreshList">
             <tr>
                 <th width="100" style="text-align:left; padding-left:20px;"></th>
-                <th width="10%">景点名称</th>
-                <th width="10%">图片</th>
-                <th>景点类型</th>
-                <th>门票价格</th>
-                <th>景点负责人</th>
-                <th width="10%">创建时间</th>
-                <th width="20%">操作</th>
+                <th>路线标题</th>
+                <th >路线总长</th>
+                <th>路线预估耗时</th>
+                <th>路线出行价格</th>
+                <th >创建时间</th>
+                <th >操作</th>
             </tr>
-            <tr th:each="view : ${viewList}">
+            <tr th:each="line : ${lineList}">
                 <td style="text-align:left; padding-left:20px;"><input type="checkbox" name="id" value=""/></td>
-                <td th:text="${view.viewTitle}"></td>
-                <td><img th:src="${'/upload/img/'+view.pictureUrl}" alt="" width="100" height="70"/></td>
-                <td th:switch="${view.type}">
-                    <span th:case="1">收费</span>
-                    <span th:case="2">免费</span>
-                </td>
-                <td th:text="${view.price == null or view.price == '' ? '暂无' : view.price}"></td>
-                <td th:text="${view.manager}"></td>
-                <td th:text="${#dates.format(view.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${line.lineTitle}"></td>
+                <td th:text="${line.lineTotal }"></td>
+                <td th:text="${line.lineTime }"></td>
+                <td th:text="${line.price == null or line.price == '' ? '暂无' : line.price}"></td>
+                <td th:text="${#dates.format(line.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td>
                     <div class="button-group"><a class="button border-main"
-                                                 th:href="${'/view/edit.do?viewId='+view.id}"><span
+                                                 th:href="${'/line/edit.do?lineId='+line.id}"><span
                             class="icon-edit"></span> 修改</a> <a class="button border-red" href="javascript:void(0)"
-                                                                th:onclick="del([[${view.id}]])"><span
+                                                                th:onclick="del([[${line.id}]])"><span
                             class="icon-trash-o"></span> 删除</a></div>
                 </td>
             </tr>
@@ -151,7 +113,7 @@
     //搜索
     function changesearch() {
         var queryName = document.getElementById('keywords').value;
-        window.location.href = '/view/list.do?queryName=' + queryName;
+        window.location.href = '/line/list.do?queryName=' + queryName;
     }
 
     //分页
@@ -163,7 +125,7 @@
 
         //获取列表总数量
         $.ajax({
-            url: '/view/count.do',
+            url: '/line/count.do',
             type: 'POST',
             dataType: 'json',
             async: false,
@@ -185,7 +147,7 @@
 
                 if (!first) {
                     $.ajax({
-                        url: '/view/list.do',
+                        url: '/line/list.do',
                         type: 'POST',
                         data: {'pageSize': obj.limit, 'pageIndex': obj.curr},
                         success: function (data) {
@@ -204,10 +166,10 @@
         layer.confirm('确定要删除吗?', {icon: 7, title: '提示'}, function (index) {
             //do something
             $.ajax({
-                url: '/view/deleteView.do',
+                url: '/line/deleteLine.do',
                 type: 'POST',
                 dataType: 'json',
-                data: {'viewId': id},
+                data: {'lineId': id},
                 async: false,
                 success: function (data) {
                     if(data == null || data == '' || data == 0)
@@ -215,7 +177,7 @@
                         layer.msg("删除失败", {offset: '300px'});
                     }else if (data > 0) {
                         layer.msg("删除成功", {offset: '300px', time: 1000}, function () {
-                            window.location.href = "/view/list.do";
+                            window.location.href = "/line/list.do";
                         });
                     }
                 }

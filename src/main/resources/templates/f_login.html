@@ -74,13 +74,13 @@
 			<div class="col-lg-12">
 				<h2 class="pageTitle" style="color: white">账号登录</h2>
 				<div class="content2" style="margin: 0 auto;float: none">
-					<form method="post" action="/user/login.do">
+					<form method="post" action="/login.do">
 						<input type="text" name="username" value="请输入账号" maxlength="20" minlength="6"  onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '请输入账号';}">
 						<input type="password" name="password" value="请输入密码" maxlength="20" minlength="6"  onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '请输入密码';}">
+						<input id="logintype" name="logintype" hidden="hidden" value="1"/>
 						<div class="button-row">
 							<input type="submit" class="register" value="登录">
 						</div>
-						<input id="loginType" name="loginType" hidden="hidden" value="1"/>
 						<input id="msgText" hidden="hidden" th:value="${msg}"/>
 					</form>
 				</div>

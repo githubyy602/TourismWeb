@@ -60,7 +60,7 @@ public class CommonController {
             User user = (User) subject.getPrincipal();
             if(CommonConstants.USER_TYPE_OF_TOURIST == logintype){
 	            subject.getSession().setAttribute("tourist",user);
-	            return "f_index";
+	            return "redirect:/view/web/index.do";
             }else if(CommonConstants.USER_TYPE_OF_MANAGE == logintype){
 	            subject.getSession().setAttribute("manager",user);
 	            return "index";

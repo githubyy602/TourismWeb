@@ -52,7 +52,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping(value = {"/","/index"})
+	@GetMapping(value = {"","/","/index"})
 	public String getIndex(){
 		return "f_index";
 	}
@@ -67,7 +67,7 @@ public class UserController {
 		return "f_index";
 	}
 	
-	@GetMapping(value = "/login.do")
+	@GetMapping(value = {"/login","/login.do"})
 	public String toLoginPage(){
 		return "f_login";
 	}

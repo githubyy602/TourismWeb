@@ -2,7 +2,9 @@ package com.yangy.web.controller;
 
 
 import com.yangy.web.common.PageBean;
+import com.yangy.web.entity.Line;
 import com.yangy.web.entity.View;
+import com.yangy.web.mapper.LineMapper;
 import com.yangy.web.service.ViewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,9 @@ public class ViewController {
 	
 	@Autowired
 	private ViewService viewService;
+	
+	@Autowired
+	private LineMapper lineMapper;
 	
 	@GetMapping("/list.do")
 	public String toListPage(PageBean pageBean, Model model){
@@ -67,6 +72,9 @@ public class ViewController {
 		}else{
 			model.addAttribute("view",new View());
 		}
+		
+		List<Line> lineList = lineMapper.selectList(null);
+		model.addAttribute("lineList",lineList);
 		return "viewEdit";
 	}
 	
@@ -88,7 +96,19 @@ public class ViewController {
 		return viewService.deleteRecord(viewId);
 	}
 	
-	
+	/**
+	* @Author Yangy
+	* @Description 旅游网站web端index页面
+	* @Date 14:35 2021/8/18
+	* @Param [pageBean, model]
+	* @return java.lang.String
+	**/
+	@GetMapping("/web/index.do")
+	public String toIndexPage(Model model){
+		List<View> viewList = viewService.getList(new PageBean());
+		model.addAttribute("viewList",viewList);
+		return "f_index";
+	}
 	
 }
 

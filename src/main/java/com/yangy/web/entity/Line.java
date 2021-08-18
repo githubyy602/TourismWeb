@@ -6,10 +6,14 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>
@@ -23,7 +27,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("tb_line")
 @ApiModel(value="Line对象", description="路线表")
-public class Line implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Line  implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -53,6 +59,4 @@ public class Line implements Serializable {
 
     @ApiModelProperty(value = "更新时间")
     private Date updateTime;
-
-
 }

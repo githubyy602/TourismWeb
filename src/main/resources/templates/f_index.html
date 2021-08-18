@@ -122,76 +122,76 @@
             </div>
 
             <div class="row box-section">
-                <div class="col-md-4">
+                <div class="col-md-4" th:each=" view : ${viewList}">
                     <div class="box-content">
                         <a href="f_details.html">
-                            <img class="img-responsive" src="/img/img01.jpg" alt="">
-                            <h3>England <span class="price pull-right">$230</span></h3>
+                            <img class="img-responsive" th:src="${'/upload/img/'+view.pictureUrl}" alt="">
+                            <h3 th:text="${view.viewTitle}"><span class="price pull-right" th:text="${'￥'+view.price}"></span></h3>
                             <strong>Istanbul, Antalya, Ephesus 8 days</strong>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur
                                 aliquam, incidunt eius magni provident, doloribus</p>
                         </a>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="box-content">
-                        <a href="f_details.html">
-                            <img class="img-responsive" src="/img/img02.jpg" alt="">
-                            <h3>Italy <span class="price pull-right">$140</span></h3>
-                            <strong>Istanbul, Antalya, Ephesus 8 days</strong>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur
-                                aliquam, incidunt eius magni provident</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="box-content">
-                        <a href="f_details.html">
-                            <img class="img-responsive" src="/img/img03.jpg" alt="">
-                            <h3>Russia <span class="price pull-right">$125</span></h3>
-                            <strong>Istanbul, Antalya, Ephesus 8 days</strong>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur
-                                aliquam, incidunt eius magni provident, doloribus omnis</p>
-                        </a>
-                    </div>
-                </div>
+                <!--<div class="col-md-4">-->
+                    <!--<div class="box-content">-->
+                        <!--<a href="f_details.html">-->
+                            <!--<img class="img-responsive" src="/img/img02.jpg" alt="">-->
+                            <!--<h3>Italy <span class="price pull-right">$140</span></h3>-->
+                            <!--<strong>Istanbul, Antalya, Ephesus 8 days</strong>-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur-->
+                                <!--aliquam, incidunt eius magni provident</p>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-4">-->
+                    <!--<div class="box-content">-->
+                        <!--<a href="f_details.html">-->
+                            <!--<img class="img-responsive" src="/img/img03.jpg" alt="">-->
+                            <!--<h3>Russia <span class="price pull-right">$125</span></h3>-->
+                            <!--<strong>Istanbul, Antalya, Ephesus 8 days</strong>-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur-->
+                                <!--aliquam, incidunt eius magni provident, doloribus omnis</p>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
 
-            <div class="row box-section">
-                <div class="col-md-4">
-                    <div class="box-content">
-                        <a href="f_details.html">
-                            <img class="img-responsive" src="/img/img04.jpg" alt="">
-                            <h3>France <span class="price pull-right">$230</span></h3>
-                            <strong>Istanbul, Antalya, Ephesus 8 days</strong>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur
-                                aliquam, incidunt eius magni provident, doloribus</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="box-content">
-                        <a href="f_details.html">
-                            <img class="img-responsive" src="/img/img05.jpg" alt="">
-                            <h3>Germany <span class="price pull-right">$140</span></h3>
-                            <strong>Istanbul, Antalya, Ephesus 8 days</strong>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur
-                                aliquam, incidunt eius magni provident</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="box-content">
-                        <a href="f_details.html">
-                            <img class="img-responsive" src="/img/img06.jpg" alt="">
-                            <h3>Spain <span class="price pull-right">$125</span></h3>
-                            <strong>Istanbul, Antalya, Ephesus 8 days</strong>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur
-                                aliquam, incidunt eius magni provident, doloribus omnis</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <!--<div class="row box-section">-->
+                <!--<div class="col-md-4">-->
+                    <!--<div class="box-content">-->
+                        <!--<a href="f_details.html">-->
+                            <!--<img class="img-responsive" src="/img/img04.jpg" alt="">-->
+                            <!--<h3>France <span class="price pull-right">$230</span></h3>-->
+                            <!--<strong>Istanbul, Antalya, Ephesus 8 days</strong>-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur-->
+                                <!--aliquam, incidunt eius magni provident, doloribus</p>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-4">-->
+                    <!--<div class="box-content">-->
+                        <!--<a href="f_details.html">-->
+                            <!--<img class="img-responsive" src="/img/img05.jpg" alt="">-->
+                            <!--<h3>Germany <span class="price pull-right">$140</span></h3>-->
+                            <!--<strong>Istanbul, Antalya, Ephesus 8 days</strong>-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur-->
+                                <!--aliquam, incidunt eius magni provident</p>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-4">-->
+                    <!--<div class="box-content">-->
+                        <!--<a href="f_details.html">-->
+                            <!--<img class="img-responsive" src="/img/img06.jpg" alt="">-->
+                            <!--<h3>Spain <span class="price pull-right">$125</span></h3>-->
+                            <!--<strong>Istanbul, Antalya, Ephesus 8 days</strong>-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur-->
+                                <!--aliquam, incidunt eius magni provident, doloribus omnis</p>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
 
 
             <div class="container">
