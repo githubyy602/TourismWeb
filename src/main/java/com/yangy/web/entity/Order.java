@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public class Order implements Serializable {
     private Integer userId;
 
     @ApiModelProperty(value = "景点id")
-    private String viewId;
+    private Integer viewId;
 
     @ApiModelProperty(value = "订单成交价格")
     private String price;
@@ -52,6 +53,7 @@ public class Order implements Serializable {
     private Integer peopleNum;
 
     @ApiModelProperty(value = "旅游出行时间")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date travelTime;
 
     @ApiModelProperty(value = "订单状态：1=已创建，2=未支付，3=已支付，4=已过期")

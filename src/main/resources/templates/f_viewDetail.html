@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<head>
+    <meta charset="utf-8">
+    <title>深美旅游网-首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="/img/favicon-now.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/favicon-now.ico" type="image/x-icon"/>
+    <!-- css -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/fancybox/jquery.fancybox.css" rel="stylesheet">
+    <link href="/css/flexslider.css" rel="stylesheet"/>
+    <link href="/css/style1.css" rel='stylesheet' type='text/css' />
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <link href="/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <script src="/js/jquery.js"></script>
+    <script src="/js/pintuer.js"></script>
+    <script type="text/javascript" src="/layui/layui.js"></script>
+    <script type="text/javascript" src="/layui/layui.all.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <style>
+        td{
+            padding: 8px;
+            font-size: 16px;
+        }
+        .details input{
+            border-radius: 5px !important;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper" class="home-page">
+    <header>
+        <div class="navbar navbar-default navbar-static-top" style="position: inherit;background-color: #2f2f2f;">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" style="font-size: 45px;font-family: STCaiyun;font-weight: bolder;color: #1891EC;"
+                       href="/user/index.do">深美旅游网</a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/user/index.do">首页</a></li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">鹏程美景<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="f_about.html">热门景点</a></li>
+                                <li><a href="#">景点分类</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="f_register.html">我的信息</a></li>
+                        <li><a href="f_contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="content" style="padding-top: 0;background: #f0fbeb;">
+        <!-- details -->
+        <div class="details">
+            <div class="container">
+                <div class="col-md-7 details-left">
+                    <img th:src="${'/upload/img/'+view.pictureUrl}" class="img-responsive" style="height: 480px;" >
+                </div>
+                <div class="col-md-5 details-right">
+                    <table>
+                        <tr>
+                            <td colspan="2" th:text="${view.viewTitle}" style="font-size: 40px;font-weight: bolder;"> 
+                                    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px;font-weight: bolder;vertical-align: top;">
+                               门票价格： 
+                            </td>
+                            <td  th:text="${view.price == null or view.price == '' ? '免费' : view.price+'元'}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px;font-weight: bolder;vertical-align: top;">
+                                景点热线：
+                            </td>
+                            <td th:text="${view.phone}">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px;font-weight: bolder;vertical-align: top;">
+                               推荐路线： 
+                            </td>
+                            <td th:utext="${#strings.replace(view.lineDesc,'\n','<br>')}">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px;font-weight: bolder;vertical-align: top;">
+                               景点介绍： 
+                            </td>
+                            <td th:utext="${#strings.replace(view.viewIntroduce,'\n','<br>')}">
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-12" style="text-align: center;padding: 30px 20px;">
+                    <button class="layui-btn layui-btn-lg layui-btn-danger" id="orderBtn" style="margin: 10px 20px;background-color: #1891EC;">
+                        <i class="layui-icon">&#xe654;</i>预定下单
+                    </button>
+                    <button class="layui-btn layui-btn-lg layui-btn-danger" style="background-color: #1891EC;" id="msgBtn" >
+                        <i class="layui-icon">&#xe642;</i>留言评论
+                    </button>
+                </div>
+                <input type="hidden" id="msgText" th:value="${errorMsg}"/>
+                <div class="clearfix"></div>
+                <div class="booking-form" id="bookArea" style="display: none; border:1px solid #ffcc00;background:#fffff7;margin: 10px;">
+                    <div class="col-md-12">
+                        <form action="/order/crate.do" method="post">
+                            <h5>旅客姓名</h5>
+                            <input type="text" name="touristName" value="">
+                            <h5>旅客电话</h5>
+                            <input type="text" name="touristPhone" value="">
+                            <h5>出行人数</h5>
+                            <input type="text" name="peopleNum" value="">
+                            <h5>景点票价</h5>
+                            <input type="text" name="price" readonly="readonly" th:value="${view.price == null or view.price == '' ? '免费' : view.price+'元'}">
+                            <h5>出行时间</h5>
+                            <input type="date" name="travelTime" value="" id="timeInput" class="time">
+                            <input type="hidden" name="viewId" th:value="${view.id}" >
+                            <input type="hidden" name="userId" th:value="${userId}" >
+                            <div style="text-align: center;margin: 10px;">
+                                <button type="submit" class="layui-btn layui-btn-danger" style="margin: 10px 20px;">
+                                    提交订单
+                                </button>
+                                <button type="button" class="layui-btn layui-btn-primary layui-border-red" id="orderCancel">
+                                    取消
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="messageArea" style="display: none; border:1px solid #96c2f1;background:#eff7ff;margin: 10px;" class="col-md-12">
+                    <h5 style="display: block;">留言评论区：</h5>
+                    <form action="/leaveMessage/create.do" method="post">
+                        <input type="hidden" name="viewId" th:value="${view.id}" >
+                        <input type="hidden" name="userId" th:value="${userId}" >
+                        <textarea class="col-md-12"  style="display: block;height: 200px;" name="message" value=""></textarea>
+                        <div style="text-align: center;margin: 20px;">
+                            <button type="submit" class="layui-btn layui-btn-danger" style="margin: 10px 20px;">
+                                提交
+                            </button>
+                            <button type="button" class="layui-btn layui-btn-primary layui-border-red" id="msgCancel">
+                                取消
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            
+                <div id="leaveMsgArea" class="col-md-12" th:if="${messageList != null and messageList.size() > 0}">
+                    <div style="border: 1px #66512c dashed;border-radius: 5px;padding-left: 10px;">
+                        <p style="font-size: 20px;font-weight: bolder;">评论留言区：</p>
+                        <div th:each="msgInfo,msgState : ${messageList}" style="border-bottom: 1px #13a1fc dashed;margin: 10px 5px;">
+                            <img th:src="${'/upload/img/touxiang'+((msgState.index+1) mod 6)+'.jpg'}" style="height: 50px;width: 50px;" />
+                            <span th:text="${msgInfo.userName != null and msgInfo.userName != '' ? msgInfo.userName : '游客'+(msgState.index+1)}" style="font-size: 20px;"></span>
+                            <br>
+                            <span style="font-size: 16px;font-weight: bolder;margin: 10px;">评论：</span><span th:text="${msgInfo.message}"></span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <!-- details -->
+</section>
+    
+    
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-3">
+                    <div class="widget">
+                        <h5 class="widgetheading">联系我们</h5>
+                        <address>
+                            <strong>欢迎来访</strong><br>
+                        </address>
+                        <p>
+                            <i class="icon-phone"></i> 座机号码： (+0755) 8888-8888 <br>
+                            <i class="icon-envelope-alt"></i> Yangy@qq.com
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="widget">
+                        <h5 class="widgetheading">票务链接</h5>
+                        <ul class="link-list">
+                            <li><a href="#">12306</a></li>
+                            <li><a href="#">飞猪订票</a></li>
+                            <li><a href="#">去哪儿网订票</a></li>
+                            <li><a href="#">中国航空票务</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="widget">
+                        <h5 class="widgetheading">特色服务</h5>
+                        <ul class="link-list">
+                            <li><a href="#">行李托运</a></li>
+                            <li><a href="#">酒店代订</a></li>
+                            <li><a href="#">司机代驾</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="widget">
+                        <h5 class="widgetheading">最新资讯</h5>
+                        <ul class="link-list">
+                            <li><a href="#">近日天气预报</a></li>
+                            <li><a href="#">最新票价推送</a></li>
+                            <li><a href="#">安全知识推送</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sub-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="copyright">
+                            <p>
+                                Copyright &copy; 2017.Company name All rights reserved.<a target="_blank"
+                                                                                          href="#">深美网</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <ul class="social-network">
+                            <li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                            <li><a href="#" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                            </li>
+                            <li><a href="#" data-placement="top" title="Google plus"><i
+                                    class="fa fa-google-plus"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+
+
+<script>
+    
+    //错误提示
+    var errorMsg = document.getElementById("msgText").value;
+    if(errorMsg != null && errorMsg != ''){
+        layer.msg(errorMsg,{offset: '100px'});
+    }
+    
+    
+    
+    $("#orderBtn").click(function(){
+        $("#bookArea").slideToggle();
+    });
+
+    $("#msgBtn").click(function(){
+        $("#messageArea").slideToggle();
+    });
+    
+    layui.use('laydate', function(){
+      var laydate = layui.laydate;
+      
+      //常规用法
+      laydate.render({
+        elem: '#timeInput'
+    });
+      
+    $("#orderCancel").click(function () {
+        $("#bookArea form")[0].reset();
+        $("#bookArea").slideToggle();
+    });
+    
+    $("#msgCancel").click(function () {
+        $("#messageArea form")[0].reset();
+        $("#messageArea").slideToggle();
+    });
+      
+});
+    
+</script>
+
+</body>
+
+
+
+</html>

@@ -1,9 +1,8 @@
 package com.yangy.web.controller;
 
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -13,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Yangy
  * @since 2021-08-12
  */
-@RestController
-@RequestMapping("/user-members")
+@Controller
+@RequestMapping("/userMembers")
 public class UserMembersController {
 
 }

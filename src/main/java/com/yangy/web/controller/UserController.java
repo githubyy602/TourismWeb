@@ -54,7 +54,7 @@ public class UserController {
 	
 	@GetMapping(value = {"","/","/index"})
 	public String getIndex(){
-		return "f_index";
+		return "redirect:/view/web/index.do";
 	}
 	
 	@GetMapping(value = "/register.do")
@@ -64,7 +64,7 @@ public class UserController {
 	
 	@GetMapping(value = "/index.do")
 	public String toIndexPage(){
-		return "f_index";
+		return "redirect:/view/web/index.do";
 	}
 	
 	@GetMapping(value = {"/login","/login.do"})
@@ -112,5 +112,17 @@ public class UserController {
 		return "f_register"; 
 	}
     
+	/**
+	* @Author Yangy
+	* @Description 进入游客个人信息页（需要登录）
+	* @Date 12:20 2021/8/20
+	* @Param []
+	* @return java.lang.String
+	**/
+	@GetMapping("/private/info.do")
+	public String toTouristInfoPage(){
+		return "f_contact";
+	}
+	
 }
 

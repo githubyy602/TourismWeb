@@ -32,8 +32,10 @@ spring:
 
   #配置redis的主机号与端口，如果redis开在linux服务器上，就要打开响应的端口
   redis:
-    host: 127.0.0.1
+    database: 1
+    host: 172.16.50.100
     port: 6379
+    password:
 
   #热部署配置：修改项目之后无需重新启动，它会自动重新编译
   devtools:

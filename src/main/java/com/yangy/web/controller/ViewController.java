@@ -1,11 +1,18 @@
 package com.yangy.web.controller;
 
 
+import com.yangy.web.bean.LeaveMessageInfo;
 import com.yangy.web.common.PageBean;
+import com.yangy.web.entity.LeaveMessage;
 import com.yangy.web.entity.Line;
+import com.yangy.web.entity.User;
 import com.yangy.web.entity.View;
+import com.yangy.web.mapper.LeaveMessageMapper;
 import com.yangy.web.mapper.LineMapper;
 import com.yangy.web.service.ViewService;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +42,9 @@ public class ViewController {
 	
 	@Autowired
 	private LineMapper lineMapper;
+	
+	@Autowired
+	private LeaveMessageMapper leaveMessageMapper;
 	
 	@GetMapping("/list.do")
 	public String toListPage(PageBean pageBean, Model model){
@@ -110,5 +120,34 @@ public class ViewController {
 		return "f_index";
 	}
 	
+	/**
+	* @Author Yangy
+	* @Description 景点详情页
+	* @Date 15:36 2021/8/19
+	* @Param [model]
+	* @return java.lang.String
+	**/
+	@GetMapping("/web/detail.do")
+	public String toDetail(Integer viewId, 
+	                       @RequestParam(value = "errorMsg",required = false) String errorMsg,
+	                       Model model){
+		View view = viewService.selectViewRecord(viewId);
+		
+		Subject subject = SecurityUtils.getSubject();
+		User loginUser = (User) subject.getSession().getAttribute("tourist");
+		
+		List<LeaveMessageInfo> messageList = leaveMessageMapper.getMessageListByViewId(viewId);
+		
+		model.addAttribute("view",view);
+		model.addAttribute("userId",Objects.nonNull(loginUser) ? loginUser.getId() : 0);
+		model.addAttribute("messageList",messageList);
+		if(StringUtils.equals("-1",errorMsg)){
+			model.addAttribute("errorMsg","订单创建失败！");	
+		}else if(StringUtils.equals("-2",errorMsg)){
+			model.addAttribute("errorMsg","评论失败");	
+		}
+		
+		return "f_viewDetail";
+	}
 }
 

@@ -18,14 +18,10 @@
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <style>
-        .hoverFont{
-            position:absoulte;
-            left:100px; /*只是假定的值，具体需测量*/
-            top:200px;
-            z-index:101; /*z-index的数值越大，层就越在上面*/
-        }
-    </style>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/pintuer.js"></script>
+    <script type="text/javascript" src="/layui/layui.js"></script>
+    <script type="text/javascript" src="/layui/layui.all.js"></script>
 </head>
 <body>
 <div id="wrapper" class="home-page">
@@ -49,7 +45,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" style="font-size: 45px;font-family: YouYuan;font-weight: bolder;" href="/user/index.do">深美旅游网</a>
+                    <!--Comic Sans MS ，YouYuan-->
+                    <a class="navbar-brand" style="font-size: 45px;font-family: STCaiyun;font-weight: bolder;" href="/user/index.do">深美旅游网</a>
                 </div>
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
@@ -61,7 +58,7 @@
                                 <li><a href="#">景点分类</a></li>
                             </ul>
                         </li>
-                        <li><a href="f_register.html">我的信息</a></li>
+                        <li><a href="/user/private/info.do">我的信息</a></li>
                         <li><a href="f_contact.html">联系我们</a></li>
                     </ul>
                 </div>
@@ -124,7 +121,7 @@
                       <div carousel-item>
                         <div th:each=" view : ${viewList}" style="z-index: 1;position: absolute;">
                             <div th:text="${view.viewTitle}" style="position: absolute;z-index: 2;right: 10px;bottom: 10px;font-size: 40px;font-weight: bolder;color: white;"></div>
-                            <img style="width: 100%;height: 100%;z-index: 0;" th:src="${'/upload/img/'+view.pictureUrl}" alt="">
+                            <a th:href="${'/view/web/detail.do?viewId='+view.id}"><img style="width: 100%;height: 100%;z-index: 0;" th:src="${'/upload/img/'+view.pictureUrl}" alt=""></a>
                         </div>
                       </div>
                 </div>
@@ -133,11 +130,11 @@
             <div class="row box-section">
                 <div class="col-md-4" th:each=" view : ${viewList}">
                     <div class="box-content">
-                        <a href="f_details.html">
-                            <img class="img-responsive" style="height: 180px;width: 100%;" th:src="${'/upload/img/'+view.pictureUrl}" >
+                        <a th:href="${'/view/web/detail.do?viewId='+view.id}">
+                            <img class="img-responsive" style="height: 180px;width: 100%;" th:src="${'/upload/img/'+view.pictureUrl}"  >
                             <div style="font-size: 20px;font-weight: bolder;border-bottom: solid; margin: 5px 0">
-                                <span th:text="${view.viewTitle}" ></span>
-                                <span class="price pull-right" th:text="${view.price == null or view.price == '' ? '免费' : '￥'+view.price}"></span>
+                                <span  th:text="${view.viewTitle}" ></span>
+                                <span class="price pull-right" style="color: #DAA520;" th:text="${view.price == null or view.price == '' ? '免费' : '￥'+view.price}"></span>
                             </div>
                             <strong>景点特色：</strong>
                             <p th:utext="${#strings.abbreviate(#strings.replace(view.viewIntroduce,'\n','<br>'),120)}" style="height: 120px;" ></p>
@@ -483,24 +480,7 @@
     </footer>
 </div>
 <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
-<!-- javascript
-    ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script type=“text/javascript” src="/js/jquery.js"></script>
-<script type=“text/javascript” src="/js/jquery.easing.1.3.js"></script>
-<script type=“text/javascript” src="/js/bootstrap.min.js"></script>
-<script type=“text/javascript” src="/js/jquery.fancybox.pack.js"></script>
-<script type=“text/javascript” src="/js/jquery.fancybox-media.js"></script>
-<script type=“text/javascript” src="/js/jquery.flexslider.js"></script>
-<script type=“text/javascript” src="/js/animate.js"></script>
-<!-- Vendor Scripts -->
-<script type=“text/javascript” src="/js/modernizr.custom.js"></script>
-<script type=“text/javascript” src="/js/jquery.isotope.min.js"></script>
-<script type=“text/javascript” src="/js/jquery.magnific-popup.min.js"></script>
-<script type=“text/javascript” src="/js/animate.js"></script>
-<script type=“text/javascript” src="/js/custom.js"></script>
-<script type="text/javascript" src="/layui/layui.js"></script>
-<script type="text/javascript" src="/layui/layui.all.js"></script>
+
 
 <script>
     layui.use('carousel', function(){
