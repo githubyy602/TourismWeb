@@ -101,8 +101,6 @@ public class UserController {
 		}
 
 		if(num > 0){
-//			model.addAttribute("userName",user.getUserName());
-//			model.addAttribute("userType",CommonConstants.USER_TYPE_OF_TOURIST);
 			Subject subject = SecurityUtils.getSubject();
 			subject.getSession().setAttribute("tourist",user);
 			return "f_index"; 

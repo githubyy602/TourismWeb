@@ -60,6 +60,9 @@
                         </li>
                         <li><a href="f_register.html">我的信息</a></li>
                         <li><a href="f_contact.html">联系我们</a></li>
+                        <li th:if="${session != null and session.tourist != null  and  session.tourist.userName != null and session.tourist.userName != ''}">
+                            <img src="/upload/img/common.jpg" style="height: 40px;width: 40px;margin: 20px 10px;"><span style="color: #13a1fc;">欢迎 </span><span th:text="${session.tourist.userName}" style="color: white;font-weight: bolder;"></span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -70,6 +73,9 @@
         <!-- details -->
         <div class="details">
             <div class="container">
+                <div class="col-md-7 details-left" style="margin-bottom: 10px;">
+                    <a style="font-size: 16px;" href="javascript:window.history.go(-1);"> << 返回  </a>
+                </div>
                 <div class="col-md-7 details-left">
                     <img th:src="${'/upload/img/'+view.pictureUrl}" class="img-responsive" style="height: 480px;" >
                 </div>
