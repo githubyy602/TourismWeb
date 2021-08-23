@@ -93,81 +93,23 @@
 			  <!-- Start Gallery 1-2 -->
     <section id="gallery-1" class="content-block section-wrapper gallery-1">
 		<div class="container col-md-12" style="background: #f0fbeb;min-height: 800px;">
-			<div class="col-md-6 details-left" style="margin-bottom: 10px;">
-				<a style="font-size: 16px;" href="javascript:window.history.go(-1);"> << 返回  </a>
-			</div>
+			<!--<div class="col-md-6 details-left" style="margin-bottom: 10px;">-->
+				<!--<a style="font-size: 16px;" href="javascript:window.history.go(-1);"> << 返回  </a>-->
+			<!--</div>-->
 			
 			<div class="col-md-12" style="margin-bottom: 10px;text-align: center">
-				<span style="font-size: 35px;font-weight: bold;">订单详情</span>
+				<span style="font-size: 35px;font-weight: bold;">订单支付结果</span>
 			</div>
 			
-			<!--用户信息-->
-			<div class="col-md-12" style="margin: 20px 0px;">
-				<table class="col-md-12">
-					<tr>
-						<td colspan="2" style="font-size: 20px;font-weight: bold;">游客信息</td>
-					</tr>
-					<tr>
-						<td style="width: 80px;font-weight: bold;">游客名称：</td>
-						<td th:text="${payUser.userName}"></td>
-					</tr>
-					<tr>
-						<td style="width: 80px;font-weight: bold;">游客电话：</td>
-						<td th:text="${payUser.phone}"></td>
-					</tr>
-					<tr>
-						<td style="width: 80px;font-weight: bold;">出行人数：</td>
-						<td th:text="${payOrder.peopleNum}"></td>
-					</tr>
-				</table>
+			<div class="row col-md-12" style="margin: 20px 0px;text-align: center">
+				<img src="/img/success.jpg" style="height: 200px;width: 200px;border-radius: 100px;">
+				<h1 style="color: #6cbc35;">支付成功！</h1>
+				<p>订单号：<span th:text="${orderNo}"></span></p>
 			</div>
 			
-			<!--订单信息-->
-			<div class="col-md-12" style="margin: 5px 0px;font-weight: bold;">
-				<span style="font-size: 20px;">订单号:</span><span style="font-weight: bold;" th:text="${payOrder.orderNo}"></span>
-                <input type="hidden" id="orderNoInput" th:value="${payOrder.orderNo}"/>
+			<div class="row col-md-12" style="margin: 20px 0px;text-align: center">
+				<a th:href="${'/payRecord/toPay.do?orderNo='+orderNo+'&userId='+userId}" class="layui-btn layui-btn-primary" id="goBack" >返回</a>
 			</div>
-			
-			<!--景点信息-->
-			<div class="col-md-12" style="margin: 10px 0px;" id="orderTbale">
-				<table class="col-md-12">
-					<tr>
-						<th>景点名称</th>
-						<th>景点图片</th>
-						<th>出行日期</th>
-						<th>景点价格</th>
-					</tr>
-					<tr>
-						<td th:text="${orderView.viewTitle}"></td>
-						<td ><img th:src="${'/upload/img/'+orderView.pictureUrl}" width="150" height="100"/></td>
-						<td th:text="${#dates.format(payOrder.travelTime,'yyyy-MM-dd HH:mm:ss')}"></td>
-						<td th:text="${orderView.price}"></td>
-					</tr>
-				</table>
-			</div>
-			
-			<div th:if="${payOrder.status <= 2}">
-				<!--支付价格-->
-				<div class="col-md-12">
-					<p style="float: right;font-size: 25px;font-weight: bold;">待支付：<span style="font-weight: bold;color: red;" th:text="${payOrder.price}"></span>元</p>
-				</div>
-				
-				<div class="col-md-12" style="text-align: center;">
-					<button type="button" id="payBtn" class="layui-btn layui-btn-normal" >确认支付</button>
-					<a th:href="${'/view/web/detail.do?viewId='+orderView.id}" class="layui-btn layui-btn-primary" id="goBack" >返回</a>
-				</div>
-			</div>
-			<div th:if="${payOrder.status == 3}">
-				<div class="col-md-12">
-					<p style="float: right;">订单状态：已支付
-				</div>
-			</div>
-			<div th:if="${payOrder.status == 4}">
-				<div class="col-md-12">
-					<p style="float: right;">订单状态：已过期
-				</div>
-			</div>
-			
         <!-- /.container -->
 		</div>
     </section>
@@ -251,30 +193,6 @@
     </footer>
 </div>
 <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
-
-<script>
-    
-    const sleep = (time) => {
-          return new Promise((resolve) => {
-            setTimeout(resolve, time);
-          });
-        };
-    
-    $("#payBtn").click(function () {
-       var orderNo = document.getElementById("orderNoInput").value;
-       
-       layer.load(0, {
-                    shade: false,
-                    time: 2*1000});
-       
-        sleep(2000).then(() => {
-          layer.msg("支付成功！", {offset: '300px', time: 1000}, function () {
-                            window.location.href = '/payRecord/pay.do?orderNo=' + orderNo;
-                       });  
-        });
-       
-    });
-</script>
 
 </body>
 </html>

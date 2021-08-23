@@ -1,14 +1,17 @@
 package com.yangy.web.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yangy.web.bean.LeaveMessageInfo;
 import com.yangy.web.common.PageBean;
-import com.yangy.web.entity.LeaveMessage;
 import com.yangy.web.entity.Line;
+import com.yangy.web.entity.Order;
 import com.yangy.web.entity.User;
 import com.yangy.web.entity.View;
 import com.yangy.web.mapper.LeaveMessageMapper;
 import com.yangy.web.mapper.LineMapper;
+import com.yangy.web.mapper.OrderMapper;
 import com.yangy.web.service.ViewService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -45,6 +48,9 @@ public class ViewController {
 	
 	@Autowired
 	private LeaveMessageMapper leaveMessageMapper;
+	
+	@Autowired
+	private OrderMapper orderMapper;
 	
 	@GetMapping("/list.do")
 	public String toListPage(PageBean pageBean, Model model){
@@ -138,13 +144,24 @@ public class ViewController {
 		
 		List<LeaveMessageInfo> messageList = leaveMessageMapper.getMessageListByViewId(viewId);
 		
+		Integer userId = Objects.nonNull(loginUser) ? loginUser.getId() : null;
+		
 		model.addAttribute("view",view);
-		model.addAttribute("userId",Objects.nonNull(loginUser) ? loginUser.getId() : 0);
+		model.addAttribute("userId",userId);
 		model.addAttribute("messageList",messageList);
 		if(StringUtils.equals("-1",errorMsg)){
 			model.addAttribute("errorMsg","订单创建失败！");	
 		}else if(StringUtils.equals("-2",errorMsg)){
 			model.addAttribute("errorMsg","评论失败");	
+		}
+		
+		if(Objects.nonNull(userId)){
+			//待支付订单
+			QueryWrapper wrapper = new QueryWrapper();
+			wrapper.eq("user_id",userId);
+			wrapper.le("status",2);
+			List<Order> orderList = orderMapper.selectList(wrapper);
+			model.addAttribute("orderList",orderList);
 		}
 		
 		return "f_viewDetail";

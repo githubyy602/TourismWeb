@@ -51,9 +51,12 @@ public class ShiroConfig {
         map.put("/admin","anon");
         map.put("/admin/login","anon");
         map.put("/admin/login.do","anon");
+        map.put("/payRecord/pay.do","anon");
         map.put("/admin/index","authc");
         map.put("/user/private/**","authc");
         map.put("/leaveMessage/**","authc");
+        map.put("/payRecord/toPay.do","authc");
+        map.put("/order/**","authc");
         map.put("/manage","perms[manage]");
         map.put("/administrator","roles[administrator]");
         factoryBean.setFilterChainDefinitionMap(map);

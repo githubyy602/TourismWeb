@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
 <head>
     <meta charset="utf-8">
-    <title>深美旅游网-首页</title>
+    <title>景点详情</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
@@ -54,11 +54,11 @@
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">鹏程美景<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="f_about.html">热门景点</a></li>
+                                <li><a href="f_payResult.html">热门景点</a></li>
                                 <li><a href="#">景点分类</a></li>
                             </ul>
                         </li>
-                        <li><a href="f_register.html">我的信息</a></li>
+                        <li><a th:href="${'/user/private/info.do?userId='+userId}">我的信息</a></li>
                         <li><a href="f_contact.html">联系我们</a></li>
                         <li th:if="${session != null and session.tourist != null  and  session.tourist.userName != null and session.tourist.userName != ''}">
                             <img src="/upload/img/common.jpg" style="height: 40px;width: 40px;margin: 20px 10px;"><span style="color: #13a1fc;">欢迎 </span><span th:text="${session.tourist.userName}" style="color: white;font-weight: bolder;"></span>
@@ -73,8 +73,11 @@
         <!-- details -->
         <div class="details">
             <div class="container">
-                <div class="col-md-7 details-left" style="margin-bottom: 10px;">
+                <div class="col-md-6 details-left" style="margin-bottom: 10px;">
                     <a style="font-size: 16px;" href="javascript:window.history.go(-1);"> << 返回  </a>
+                </div>
+                <div class="col-md-6 details-right" style="margin-bottom: 10px;text-align: right;" th:if="${userId != null and userId != '' and  userId != 0}">
+                    待支付订单：【<a style="font-size: 16px;font-weight: bolder;" th:href="${'/order/myOrderList.do?userId='+userId}" th:text="${orderList.size()}"></a>】
                 </div>
                 <div class="col-md-7 details-left">
                     <img th:src="${'/upload/img/'+view.pictureUrl}" class="img-responsive" style="height: 480px;" >

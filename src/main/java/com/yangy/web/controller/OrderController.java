@@ -1,6 +1,9 @@
 package com.yangy.web.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.yangy.web.bean.OrderViewInfo;
 import com.yangy.web.constant.CommonConstants;
 import com.yangy.web.constant.RedisConstants;
 import com.yangy.web.entity.Order;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,6 +22,7 @@ import org.thymeleaf.util.DateUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -64,7 +69,7 @@ public class OrderController {
 		
 		int result = orderMapper.insert(order);
 		if(result > 0){
-			return "f_pay";	
+			return "redirect:/payRecord/toPay.do?orderNo="+orderNo+"&userId="+userId;	
 		}else{
 			model.addAttribute("errorMsg","创建订单失败！");
 			return "redirect:/view/web/detail.do?viewId="+viewId;
@@ -88,6 +93,22 @@ public class OrderController {
 		String orderNo = StringUtils.join("SM",today,String.format("%04d",userId),seqNo);
 		return orderNo;
 	}
-
+	
+	/**
+	* @Author Yangy
+	* @Description 进入订单列表
+	* @Date 11:30 2021/8/23
+	* @Param []
+	* @return java.lang.String
+	**/
+	@GetMapping(value = "/myOrderList.do")
+	public String toOrderList(Integer userId,Model model){
+		if(Objects.nonNull(userId)){
+			List<OrderViewInfo> orderList = orderMapper.selectOrderViewList(userId);
+			model.addAttribute("orderList",orderList);
+		}
+		return "f_payList";
+	}
+	
 }
 
