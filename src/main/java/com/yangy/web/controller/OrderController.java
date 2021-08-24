@@ -3,6 +3,7 @@ package com.yangy.web.controller;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.yangy.web.bean.OrderListBean;
 import com.yangy.web.bean.OrderViewInfo;
 import com.yangy.web.constant.CommonConstants;
 import com.yangy.web.constant.RedisConstants;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.util.DateUtils;
 
@@ -26,6 +29,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -102,12 +106,37 @@ public class OrderController {
 	* @return java.lang.String
 	**/
 	@GetMapping(value = "/myOrderList.do")
-	public String toOrderList(Integer userId,Model model){
+	public String myOrderList(Integer userId,Model model){
 		if(Objects.nonNull(userId)){
 			List<OrderViewInfo> orderList = orderMapper.selectOrderViewList(userId);
 			model.addAttribute("orderList",orderList);
 		}
 		return "f_payList";
+	}
+	
+	/**
+	* @Author Yangy
+	* @Description 订单管理功能-列表
+	* @Date 11:29 2021/8/24
+	* @Param [userId, model]
+	* @return java.lang.String
+	**/
+	@GetMapping(value = "/manageList.do")
+	public String manageList(OrderListBean orderListBean, Model model){
+		orderListBean.setPageIndex((orderListBean.getPageIndex() > 0 ? orderListBean.getPageIndex()-1 : 0)*orderListBean.getPageSize());
+		List<OrderViewInfo> orderList = orderMapper.selectAllOrderList(orderListBean);
+		if(Objects.nonNull(orderListBean) && StringUtils.isNotEmpty(orderListBean.getQueryName())){
+			orderList = orderList.stream().filter(o->Objects.nonNull(o) && o.getViewTitle().contains(orderListBean.getQueryName()))
+					.collect(Collectors.toList());
+		}
+		model.addAttribute("orderList",orderList);
+		return "orderList";
+	}
+	
+	@ResponseBody
+	@PostMapping("count.do")
+	public Integer count(){
+		return orderMapper.selectCount(null);
 	}
 	
 }

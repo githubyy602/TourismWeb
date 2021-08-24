@@ -15,9 +15,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @Author: Yangy
@@ -39,6 +37,10 @@ public class CommonController {
 		return "f_index";
 	}
 	
+	@GetMapping(value = {"/","/login.do"})
+	public String getLogin(){
+		return "f_login";
+	}
 	
 	/**
 	* @Author Yangy
@@ -63,7 +65,7 @@ public class CommonController {
 	            return "redirect:/view/web/index.do";
             }else if(CommonConstants.USER_TYPE_OF_MANAGE == logintype){
 	            subject.getSession().setAttribute("manager",user);
-	            return "index";
+	            return "redirect:/admin/index.do";
             }
             
         }catch(IncorrectCredentialsException ice){
@@ -88,9 +90,18 @@ public class CommonController {
 		return "f_login";
     }
 	
-    @PostMapping("/logout")
-	public String logout(){
-		return "/";
+    //退出登陆
+    @GetMapping("/logout.do")
+    public String logout(Integer userType){
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        if(userType == CommonConstants.USER_TYPE_OF_TOURIST){
+        	return "f_login";
+        }else if(userType == CommonConstants.USER_TYPE_OF_MANAGE){
+        	return "login";
+        }
+        
+        return "f_login";
     }
     
 }

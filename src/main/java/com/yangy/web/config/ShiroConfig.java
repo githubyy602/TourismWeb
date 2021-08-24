@@ -49,10 +49,12 @@ public class ShiroConfig {
         //权限设置
         Map<String,String> map = new Hashtable<>();
         map.put("/admin","anon");
-        map.put("/admin/login","anon");
         map.put("/admin/login.do","anon");
         map.put("/payRecord/pay.do","anon");
-        map.put("/admin/index","authc");
+        map.put("/admin/index.do","authc");
+        map.put("/view/list.do","authc");
+        map.put("/line/list.do","authc");
+        map.put("/order/manageList.do","authc");
         map.put("/user/private/**","authc");
         map.put("/leaveMessage/**","authc");
         map.put("/payRecord/toPay.do","authc");

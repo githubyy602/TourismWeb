@@ -62,6 +62,7 @@
                         <li><a href="f_contact.html">联系我们</a></li>
                         <li th:if="${session != null and session.tourist != null  and  session.tourist.userName != null and session.tourist.userName != ''}">
                             <img src="/upload/img/common.jpg" style="height: 40px;width: 40px;margin: 20px 10px;"><span style="color: #13a1fc;">欢迎 </span><span th:text="${session.tourist.userName}" style="color: white;font-weight: bolder;"></span>
+                            <p><a href="/logout.do?userType=1" style="color: #13a1fc;">[退出]</a></p>
                         </li>
                     </ul>
                 </div>

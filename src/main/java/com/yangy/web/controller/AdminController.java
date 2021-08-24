@@ -28,23 +28,13 @@ public class AdminController {
     private MailUtil mailUtil;
 
     @GetMapping(value = {"","/","/login"})
-    public String redirect(){
+    public String toLogin(){
         return "login";
     }
-
-    //未授权的页面
-    @GetMapping("/unauth")
-    @ResponseBody
-    public String unauth(){
-        return "未授权，无法访问！！！";
-    }
-
-    //退出登陆
-    @GetMapping("/logout")
-    public String logout(){
-        Subject subject = SecurityUtils.getSubject();
-        subject.logout();
-        return "login2";
+    
+    @GetMapping(value = "/index.do")
+    public String toIndex(){
+        return "index";
     }
 
     @GetMapping("/sendMail")

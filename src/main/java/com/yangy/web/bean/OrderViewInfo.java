@@ -59,4 +59,6 @@ public class OrderViewInfo {
     private Date travelTime;
     //订单状态
     private Integer orderStatus;
+    //订单创建时间
+    private Date orderTime;
 }

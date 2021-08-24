@@ -1,5 +1,6 @@
 package com.yangy.web.mapper;
 
+import com.yangy.web.bean.OrderListBean;
 import com.yangy.web.bean.OrderViewInfo;
 import com.yangy.web.entity.Order;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -19,7 +20,10 @@ import java.util.List;
  */
 public interface OrderMapper extends BaseMapper<Order> {
 	
-	@Select("select tv.*,t.order_no,t.travel_time ,t.status orderStatus ,t.user_id ,tp.url as pictureUrl  from tb_order t left join tb_view tv on t.view_id = tv.id left join tb_picture tp on tv.picture_id = tp.id where t.user_id =#{userId}")
+	@Select("select tv.*,t.order_no,t.travel_time ,t.status orderStatus ,t.user_id,t.create_time orderTime ,tp.url as pictureUrl  from tb_order t left join tb_view tv on t.view_id = tv.id left join tb_picture tp on tv.picture_id = tp.id where t.user_id =#{userId} order by t.create_time desc")
 	List<OrderViewInfo> selectOrderViewList(@Param("userId")Integer userId);
 	
+	
+	@Select("select tv.*,t.order_no,t.travel_time ,t.status orderStatus ,t.user_id,t.create_time orderTime ,tp.url as pictureUrl  from tb_order t left join tb_view tv on t.view_id = tv.id left join tb_picture tp on tv.picture_id = tp.id order by t.create_time desc limit #{pageIndex},#{pageSize}")
+	List<OrderViewInfo> selectAllOrderList(OrderListBean orderListBean);
 }
