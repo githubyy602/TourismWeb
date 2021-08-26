@@ -67,7 +67,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-					<a class="navbar-brand" href="/f_index.html" >深美旅游网</a>
+					<a class="navbar-brand" style="font-size: 45px;font-family: STCaiyun;font-weight: bolder;" href="/user/index.do">深美旅游网</a>
                 </div>
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
@@ -141,7 +141,7 @@
 						<td th:text="${orderView.viewTitle}"></td>
 						<td ><img th:src="${'/upload/img/'+orderView.pictureUrl}" width="150" height="100"/></td>
 						<td th:text="${#dates.format(payOrder.travelTime,'yyyy-MM-dd HH:mm:ss')}"></td>
-						<td th:text="${orderView.price}"></td>
+						<td th:text="${orderView.price == '' or orderView.price == null or orderView.price == '免费' ? '免费' : orderView.price}"></td>
 					</tr>
 				</table>
 			</div>
@@ -149,22 +149,34 @@
 			<div th:if="${payOrder.status <= 2}">
 				<!--支付价格-->
 				<div class="col-md-12">
-					<p style="float: right;font-size: 25px;font-weight: bold;">待支付：<span style="font-weight: bold;color: red;" th:text="${payOrder.price}"></span>元</p>
+					<p style="float: right;font-size: 25px;font-weight: bold;">待支付：<span style="font-weight: bold;color: red;" th:text="${payOrder.price == '免费' or payOrder.price == null ? '0' : payOrder.price }"></span>元</p>
 				</div>
 				
 				<div class="col-md-12" style="text-align: center;">
-					<button type="button" id="payBtn" class="layui-btn layui-btn-normal" >确认支付</button>
+                    <span th:if="${orderView.price != null and orderView.price != '免费' and orderView.price != ''}">
+					    <button type="button" id="payBtn" class="layui-btn layui-btn-normal" >确认支付</button>
+                    </span>
+                    <span th:if="${orderView.price == '' or orderView.price == null or orderView.price == '免费'}">
+					    <button type="button" id="payBtn" class="layui-btn layui-btn-normal" >订单确认</button>
+                    </span>
 					<a th:href="${'/view/web/detail.do?viewId='+orderView.id}" class="layui-btn layui-btn-primary" id="goBack" >返回</a>
 				</div>
 			</div>
 			<div th:if="${payOrder.status == 3}">
 				<div class="col-md-12">
-					<p style="float: right;">订单状态：已支付
+                    <p style="float: right;font-size: 25px;font-weight: bold;" th:if="${orderView.price != null and orderView.price != '免费' and orderView.price != ''}">订单状态：已支付</p>
+                    <p style="float: right;font-size: 25px;font-weight: bold;" th:if="${orderView.price == '' or orderView.price == null or orderView.price == '免费'}">订单状态：已确认</p>
+				</div>
+                <div class="col-md-12" style="text-align: center;">
+					<a th:href="${'/view/web/detail.do?viewId='+orderView.id}" class="layui-btn layui-btn-primary" id="goBack" >返回</a>
 				</div>
 			</div>
 			<div th:if="${payOrder.status == 4}">
 				<div class="col-md-12">
-					<p style="float: right;">订单状态：已过期
+					<p style="float: right;font-size: 25px;font-weight: bold;">订单状态：已过期</p>
+				</div>
+                <div class="col-md-12" style="text-align: center;">
+					<a th:href="${'/view/web/detail.do?viewId='+orderView.id}" class="layui-btn layui-btn-primary" id="goBack" >返回</a>
 				</div>
 			</div>
 			
@@ -173,7 +185,7 @@
     </section>
     <!--// End Gallery 1-2 -->  
 	</div>
-	<footer style="position: absolute;bottom: 0px;left: 0;right: 0;">
+	<footer style="bottom: 0px;left: 0;right: 0;">
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-3">

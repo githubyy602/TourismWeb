@@ -59,7 +59,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-					<a class="navbar-brand" href="/f_index.html" >深美旅游网</a>
+					<a class="navbar-brand" style="font-size: 45px;font-family: STCaiyun;font-weight: bolder;" href="/user/index.do">深美旅游网</a>
                 </div>
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
@@ -101,22 +101,28 @@
 			<div class="col-md-10" style="margin: 10px 0px;text-align: center;" id="orderTbale">
 				<table class="col-md-12">
 					<tr>
-						<th>景点名称</th>
-						<th>景点图片</th>
+						<th width="10%">景点名称</th>
+						<th width="20%" >景点图片</th>
 						<th>出行日期</th>
 						<th>景点价格</th>
 						<th>订单状态</th>
-						<th>操作</th>
+						<th width="20%">操作</th>
 					</tr>
 					<tr>
 						<td th:text="${order.viewTitle}"></td>
 						<td ><img th:src="${'/upload/img/'+order.pictureUrl}" width="150" height="100"/></td>
 						<td th:text="${#dates.format(order.travelTime,'yyyy-MM-dd HH:mm:ss')}"></td>
-						<td th:text="${order.price}"></td>
+						<td th:text="${order.price == null || order.price == '' || order.price == '免费' ? '免费' : order.price}"></td>
 						<td th:switch="${order.orderStatus}">
-							<p th:case="1">未支付</p>
-							<p th:case="2">未支付</p>
-							<p th:case="3">已支付</p>
+							<p th:case="1">
+                                <span th:text="${order.price == null || order.price == '' || order.price == '免费' ? '未确认' : '未支付'}"></span>
+                            </p>
+							<p th:case="2">
+                                <span th:text="${order.price == null || order.price == '' || order.price == '免费' ? '未确认' : '未支付'}"></span>
+                            </p>
+							<p th:case="3">
+                                <span th:text="${order.price == null || order.price == '' || order.price == '免费' ? '已确认' : '已支付'}"></span>
+                            </p>
 							<p th:case="4">已过期</p>
 						</td>
 						<td><a th:href="${'/payRecord/toPay.do?orderNo='+order.orderNo+'&userId='+order.userId}">查看详情>></a></td>
@@ -130,7 +136,7 @@
     </section>
     <!--// End Gallery 1-2 -->  
 	</div>
-	<footer style="position: absolute;bottom: 0px;left: 0;right: 0;">
+	<footer style="bottom: 0px;left: 0;right: 0;">
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-3">

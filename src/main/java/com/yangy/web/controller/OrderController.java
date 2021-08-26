@@ -3,6 +3,7 @@ package com.yangy.web.controller;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.yangy.web.annotation.CheckRepeatSubmit;
 import com.yangy.web.bean.OrderListBean;
 import com.yangy.web.bean.OrderViewInfo;
 import com.yangy.web.constant.CommonConstants;
@@ -49,6 +50,7 @@ public class OrderController {
 	@Autowired
 	private OrderMapper orderMapper;
 	
+	@CheckRepeatSubmit(value = "orderCreate")
 	@PostMapping(value = "/crate.do")
 	public String create(Order order, Model model){
 		

@@ -43,4 +43,10 @@ public class AdminController {
         mailUtil.sendHtmlMail("你好","haha",to);
         return "successful";
     }
+    
+    @GetMapping("/toPassword.do")
+    public String toPassword(){
+        return "pass";
+    }
+    
 }

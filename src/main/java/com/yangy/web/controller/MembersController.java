@@ -2,6 +2,8 @@ package com.yangy.web.controller;
 
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -15,6 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/members")
 public class MembersController {
-
+	
+	@GetMapping(value = "/toMemberList.do")
+	public String toMemberList(Model model){
+		return "memberList";
+	}
+	
 }
 

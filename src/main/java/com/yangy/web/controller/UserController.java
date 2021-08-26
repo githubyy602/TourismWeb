@@ -122,5 +122,16 @@ public class UserController {
 		return "f_contact";
 	}
 	
+	/**
+	* @Author Yangy
+	* @Description 进入账户管理模块
+	* @Date 16:52 2021/8/25
+	* @Param [model]
+	* @return java.lang.String
+	**/
+	@GetMapping(value = "/toAccountList.do")
+	public String toMemberList(Model model){
+		return "accountList";
+	}
 }
 
