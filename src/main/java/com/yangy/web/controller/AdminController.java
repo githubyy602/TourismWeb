@@ -34,6 +34,7 @@ public class AdminController {
     
     @GetMapping(value = "/index.do")
     public String toIndex(){
+        Subject subject = SecurityUtils.getSubject();
         return "index";
     }
 

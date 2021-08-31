@@ -37,3 +37,8 @@ http://localhost:9001/admin
 账号密码：shenmei/shenmei
 
 # 游客客户web登录页
+http://localhost:9001/user
+
+# shiro中文API文档
+https://www.w3cschool.cn/shiro/
+shiro控制并发在线人数：ShiroConfig、KickoutSessionControlFilter

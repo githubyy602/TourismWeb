@@ -69,7 +69,7 @@
         </div>
     </header>
 
-    <section id="content" style="padding-top: 0;background: #f0fbeb;">
+    <section id="content" style="padding-top: 0;background:#eff7ff;">
         <!-- details -->
         <div class="details">
             <div class="container">
@@ -132,9 +132,9 @@
                 </div>
                 <input type="hidden" id="msgText" th:value="${errorMsg}"/>
                 <div class="clearfix"></div>
-                <div class="booking-form" id="bookArea" style="display: none; border:1px solid #ffcc00;background:#fffff7;margin: 10px;">
+                <div class="booking-form" id="bookArea" style="display: none; border:1px solid #96c2f1;background:#fffff7;margin: 10px;">
                     <div class="col-md-12">
-                        <form action="/order/crate.do" method="post">
+                        <form action="/order/create.do" method="post">
                             <h5>旅客姓名</h5>
                             <input type="text" name="touristName" value="">
                             <h5>旅客电话</h5>
@@ -158,8 +158,8 @@
                         </form>
                     </div>
                 </div>
-                <div id="messageArea" style="display: none; border:1px solid #96c2f1;background:#eff7ff;margin: 10px;" class="col-md-12">
-                    <h5 style="display: block;">留言评论区：</h5>
+                <div id="messageArea" style="display: none; border:1px solid #96c2f1;background:#fffff7;margin: 10px;" class="col-md-12">
+                    <h5 style="display: block;font-weight: bold;font-size: 20px;">留言评论区：</h5>
                     <form action="/leaveMessage/create.do" method="post">
                         <input type="hidden" name="viewId" th:value="${view.id}" >
                         <input type="hidden" name="userId" th:value="${userId}" >

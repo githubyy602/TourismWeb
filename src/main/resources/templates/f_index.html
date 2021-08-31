@@ -61,8 +61,10 @@
                         <li><a href="/user/private/info.do">我的信息</a></li>
                         <li><a href="f_contact.html">联系我们</a></li>
                         <li th:if="${session != null and session.tourist != null  and  session.tourist.userName != null and session.tourist.userName != ''}">
-                            <img src="/upload/img/common.jpg" style="height: 40px;width: 40px;margin: 20px 10px;"><span style="color: #13a1fc;">欢迎 </span><span th:text="${session.tourist.userName}" style="color: white;font-weight: bolder;"></span>
-                            <p><a href="/logout.do?userType=1" style="color: #13a1fc;">[退出]</a></p>
+                            <img src="/upload/img/common.jpg" style="height: 40px;width: 40px;margin: 20px 10px;">
+                            <span style="color: #13a1fc;">欢迎 </span>
+                            <span th:text="${session.tourist.userName}" style="color: white;font-weight: bolder;"></span>
+                            <a href="/logout.do?userType=1" style="color: #13a1fc;display: inline;">[退出]</a>
                         </li>
                     </ul>
                 </div>
@@ -117,11 +119,11 @@
         <!--</div>-->
     <!--</section>-->
 
-    <section id="content" style="padding-top: 0;">
+    <section id="content" style="padding-top: 0;background:#eff7ff;">
 	
         <div class="container">
-            <div class="row">
-                <div class="layui-carousel col-lg-12" style="background-color: white;"  id="lunboDiv">
+            <div class="row col-md-12" style="width: 1170px;margin-top: 10px;" >
+                <div class="layui-carousel" style="padding: 0;background-color: white;"  id="lunboDiv">
                       <div carousel-item>
                         <div th:each=" view : ${viewList}" style="z-index: 1;position: absolute;">
                             <div th:text="${view.viewTitle}" style="position: absolute;z-index: 2;right: 10px;bottom: 10px;font-size: 40px;font-weight: bolder;color: white;"></div>

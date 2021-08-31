@@ -51,7 +51,7 @@ public class OrderController {
 	private OrderMapper orderMapper;
 	
 	@CheckRepeatSubmit(value = "orderCreate")
-	@PostMapping(value = "/crate.do")
+	@PostMapping(value = "/create.do")
 	public String create(Order order, Model model){
 		
 		Integer viewId = order.getViewId();
@@ -87,15 +87,8 @@ public class OrderController {
 		//设置订单号 格式:SM（深美） + 当前日期 + userId + 升序序号
 		String today = DateUtils.format(new Date(),"yyyyMMdd", Locale.CHINA);
 		String seqCache = RedisConstants.USER_ORDER_SEQUENCE_NO_CACHE + userId + today;
-		Object userSeq = redisTemplate.opsForValue().get(seqCache);
-		String seqNo = null;
-		if(Objects.isNull(userSeq)){
-			long num = redisTemplate.opsForValue().increment(seqCache);
-			seqNo = String.format("%04d",num);
-		}else{
-			seqNo = String.format("%04d",Integer.valueOf(userSeq.toString()));
-		}
-		
+		long num = redisTemplate.opsForValue().increment(seqCache);
+		String seqNo = String.format("%04d",num);
 		String orderNo = StringUtils.join("SM",today,String.format("%04d",userId),seqNo);
 		return orderNo;
 	}
