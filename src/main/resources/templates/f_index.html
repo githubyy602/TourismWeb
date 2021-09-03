@@ -73,9 +73,7 @@
     </header>
     <div style="width: 100%;">
         <marquee direction="left" behavior="scroll" scrollamount="10" scrolldelay="0" loop="-1" width="100%" style="background-color: #D4D4D4;color: red;font-size: 16px;" >
-            
-            <p>深入人心，美不胜收>>>>:
-                深美旅游网，自2021年以来，秉承着为每一位游客提供最佳的服务质量向前发展至今...</p>
+            <p><img src="/img/laba.jpg" style="margin-right: 5px;width: 30px;height: 30px;" />深入人心，美不胜收>>>>: 深美旅游网，自2021年以来，秉承着为每一位游客提供最佳的服务质量向前发展至今...</p>
         </marquee>
     </div>
     <!-- end header -->
@@ -124,7 +122,7 @@
         <div class="container">
             <div class="row col-md-12" style="width: 1170px;margin-top: 10px;" >
                 <div class="layui-carousel" style="padding: 0;background-color: white;"  id="lunboDiv">
-                      <div carousel-item>
+                      <div carousel-item style="border-radius: 10px;">
                         <div th:each=" view : ${viewList}" style="z-index: 1;position: absolute;">
                             <div th:text="${view.viewTitle}" style="position: absolute;z-index: 2;right: 10px;bottom: 10px;font-size: 40px;font-weight: bolder;color: white;"></div>
                             <a th:href="${'/view/web/detail.do?viewId='+view.id}"><img style="width: 100%;height: 100%;z-index: 0;" th:src="${'/upload/img/'+view.pictureUrl}" alt=""></a>

@@ -32,7 +32,7 @@ public class CommonController {
 //    	
 //    }
 	
-	@GetMapping(value = {"/","/index"})
+	@GetMapping(value = {"","/","/index"})
 	public String getIndex(){
 		return "f_index";
 	}

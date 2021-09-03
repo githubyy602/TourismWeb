@@ -1,55 +1,30 @@
 <!DOCTYPE html>
-<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
 <head>
-<meta charset="utf-8">
-<title>支付列表</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="" />
-<meta name="author" content="Yangy" />
-<link rel="icon" href="/img/favicon-now.ico" type="image/x-icon">
-<link rel="shortcut icon" href="/img/favicon-now.ico" type="image/x-icon" />
-<!-- css -->
-<link href="/css/bootstrap.min.css" rel="stylesheet" />
-<link href="/css/fancybox/jquery.fancybox.css" rel="stylesheet"> 
-<link href="/css/flexslider.css" rel="stylesheet" />
-<!-- Vendor Styles -->
-<link href="/css/magnific-popup.css" rel="stylesheet"> 
-<!-- Block Styles -->
-<link href="/css/style.css" rel="stylesheet" />
-<link href="/css/gallery-1.css" rel="stylesheet">
-<link rel="stylesheet" href="/layui/css/layui.css" media="all">
-<link href="/css/bootstrap.css" rel='stylesheet' type='text/css' />
-<script src="/js/jquery.js"></script>
-<script src="/js/pintuer.js"></script>
-<script type="text/javascript" src="/layui/layui.js"></script>
-<script type="text/javascript" src="/layui/layui.all.js"></script>
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <meta charset="utf-8">
+    <title>深美旅游网-首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="/img/favicon-now.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/favicon-now.ico" type="image/x-icon" />
+    <!-- css -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/fancybox/jquery.fancybox.css" rel="stylesheet">
+    <link href="/css/flexslider.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-<style>
-	#orderTbale tr,th,td{
-		border: 1px black solid;
-	}
-	
-	#orderTbale th{
-		text-align: center;
-	}
-</style>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/pintuer.js"></script>
+    <script type="text/javascript" src="/layui/layui.js"></script>
+    <script type="text/javascript" src="/layui/layui.all.js"></script>
 </head>
 <body>
 <div id="wrapper" class="home-page">
-    <!--<div class="topbar">-->
-      <!--<div class="container">-->
-        <!--<div class="row">-->
-          <!--<div class="col-md-12">-->
-            <!--<p class="pull-left hidden-xs">欢迎致电</p>-->
-            <!--<p class="pull-right"><i class="fa fa-phone"></i>座机号码： (+0755) 8888-8888</p>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!-- start header -->
     <header>
         <div class="navbar navbar-default navbar-static-top" style="position: inherit;background-color: #2f2f2f;">
             <div class="container">
@@ -67,10 +42,6 @@
                         <li class="active"><a href="/user/index.do">首页</a></li>
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">鹏程美景<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="f_payResult.html">热门景点</a></li>
-                                <li><a href="#">景点分类</a></li>
-                            </ul>
                         </li>
                         <li><a href="/user/private/info.do">我的信息</a></li>
                         <li><a href="f_contact.html">联系我们</a></li>
@@ -85,61 +56,51 @@
             </div>
         </div>
     </header>
-			  <!-- Start Gallery 1-2 -->
-    <section id="gallery-1" class="content-block section-wrapper gallery-1">
-		<div class="container col-md-12" style="background:#eff7ff;min-height: 560px;">
-			<div class="col-md-6 details-left" style="margin-bottom: 10px;">
-				<a style="font-size: 16px;" href="javascript:window.history.go(-1);"> << 返回  </a>
-			</div>
-			<div class="col-md-12" style="margin: 20px 0px;">
-				<span style="font-size: 30px;font-weight: bolder;">订单列表</span>
-			</div>
-			<div th:each="order : ${orderList}" style="margin: 20px 0px;">
-			<!--订单信息-->
-			<div class="col-md-12" style="margin: 5px 0px;font-weight: bolder;">
-				<span style="font-size: 20px;">订单号:</span><span style="font-weight: bolder;" th:text="${order.orderNo}"></span>
-			</div>
-			
-			<!--景点信息-->
-			<div class="col-md-10" style="margin: 10px 0px;text-align: center;" id="orderTbale">
-				<table class="col-md-12">
-					<tr>
-						<th width="20%">景点名称</th>
-						<th width="20%" >景点图片</th>
-						<th>出行日期</th>
-						<th>景点价格</th>
-						<th>订单状态</th>
-						<th width="20%">操作</th>
-					</tr>
-					<tr>
-						<td th:text="${order.viewTitle}"></td>
-						<td ><img th:src="${'/upload/img/'+order.pictureUrl}" width="150" height="100"/></td>
-						<td th:text="${#dates.format(order.travelTime,'yyyy-MM-dd HH:mm:ss')}"></td>
-						<td th:text="${order.price == null || order.price == '' || order.price == '免费' ? '免费' : order.price}"></td>
-						<td th:switch="${order.orderStatus}">
-							<p th:case="1">
-                                <span th:text="${order.price == null || order.price == '' || order.price == '免费' ? '未确认' : '未支付'}"></span>
-                            </p>
-							<p th:case="2">
-                                <span th:text="${order.price == null || order.price == '' || order.price == '免费' ? '未确认' : '未支付'}"></span>
-                            </p>
-							<p th:case="3">
-                                <span th:text="${order.price == null || order.price == '' || order.price == '免费' ? '已确认' : '已支付'}"></span>
-                            </p>
-							<p th:case="4">已过期</p>
-						</td>
-						<td><a th:href="${'/payRecord/toPay.do?orderNo='+order.orderNo+'&userId='+order.userId}">查看详情>></a></td>
-					</tr>
-				</table>
-			</div>
-				
-			</div>
-        <!-- /.container -->
-		</div>
+
+    <section id="content" style="padding-top: 0;background:#eff7ff;">
+	
+        <div class="container">
+            <!--分类标题-->
+            <div class="row col-md-12">
+                
+            </div>
+            
+            <div class="row col-md-12" style="width: 1170px;margin-top: 10px;" >
+                <div class="layui-carousel" style="padding: 0;background-color: white;"  id="lunboDiv">
+                      <div carousel-item style="border-radius: 10px;">
+                        <div th:each=" view : ${viewList}" style="z-index: 1;position: absolute;">
+                            <div th:text="${view.viewTitle}" style="position: absolute;z-index: 2;right: 10px;bottom: 10px;font-size: 40px;font-weight: bolder;color: white;"></div>
+                            <a th:href="${'/view/web/detail.do?viewId='+view.id}"><img style="width: 100%;height: 100%;z-index: 0;" th:src="${'/upload/img/'+view.pictureUrl}" alt=""></a>
+                        </div>
+                      </div>
+                </div>
+            </div>
+
+            <!--分类标题-->
+            <div class="row col-md-12">
+                
+            </div>
+            
+            <div class="row box-section">
+                <div class="col-md-4" th:each=" view : ${viewList}">
+                    <div class="box-content">
+                        <a th:href="${'/view/web/detail.do?viewId='+view.id}">
+                            <img class="img-responsive" style="height: 180px;width: 100%;" th:src="${'/upload/img/'+view.pictureUrl}"  >
+                            <div style="font-size: 20px;font-weight: bolder;border-bottom: solid; margin: 5px 0">
+                                <span  th:text="${view.viewTitle}" ></span>
+                                <span class="price pull-right" style="color: #DAA520;" th:text="${view.price == null or view.price == '' ? '免费' : '￥'+view.price}"></span>
+                            </div>
+                            <strong>景点特色：</strong>
+                            <p th:utext="${#strings.abbreviate(#strings.replace(view.viewIntroduce,'\n','<br>'),120)}" style="height: 120px;" ></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
     </section>
-    <!--// End Gallery 1-2 -->  
-	</div>
-	<footer style="bottom: 0px;left: 0;right: 0;">
+
+    <footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-3">
@@ -216,7 +177,10 @@
         </div>
     </footer>
 </div>
-<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+
+<script>
+    
+</script>
 
 </body>
 </html>

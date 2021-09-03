@@ -3,11 +3,10 @@ package com.yangy.web.config;
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.yangy.web.realm.AccountRealm;
 import com.yangy.web.realm.KickoutSessionControlFilter;
+import com.yangy.web.realm.RedisCacheManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.crazycake.shiro.RedisCacheManager;
-import org.crazycake.shiro.RedisManager;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,21 +32,22 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfig {
-        
-    //注入realm
-    @Bean
-    public AccountRealm accountRealm(){
-        return new AccountRealm();
-    }
-    
-    @Bean
-    public com.yangy.web.realm.RedisCacheManager redisCacheManager(@Qualifier("redisTemplate") RedisTemplate redisTemplate){
-        com.yangy.web.realm.RedisCacheManager redisCacheManager = new com.yangy.web.realm.RedisCacheManager();
-        redisCacheManager.setCacheLive(120);
-        redisCacheManager.setRedisTemplate(redisTemplate);
-        return redisCacheManager;
-    }
-    
+
+	//注入realm
+	@Bean
+	public AccountRealm accountRealm() {
+		return new AccountRealm();
+	}
+
+	@Bean
+	public RedisCacheManager redisCacheManager(
+			@Qualifier("redisTemplate") RedisTemplate redisTemplate) {
+		RedisCacheManager redisCacheManager = new RedisCacheManager();
+		redisCacheManager.setCacheLive(120);
+		redisCacheManager.setRedisTemplate(redisTemplate);
+		return redisCacheManager;
+	}
+
 //    @Bean
 //    public RedisManager getRedisManager(){
 //        RedisManager redisManager = new RedisManager();
@@ -64,91 +64,95 @@ public class ShiroConfig {
 //        redisCacheManager.setExpire(120);
 //        return redisCacheManager;
 //    } 
-    
-    
-    /**
-     * 自定义sessionManager
-     * @return
-     */
-    @Bean
-    public DefaultWebSessionManager sessionManager(){
-        DefaultWebSessionManager shiroSessionManager = new DefaultWebSessionManager();
-        //删除失效session
-        shiroSessionManager.setDeleteInvalidSessions(true);
-        return shiroSessionManager;
-    }
 
-    //注入安全管理器
-    @Bean
-    public DefaultWebSecurityManager securityManager(@Qualifier("accountRealm") AccountRealm accountRealm,
-                                                     @Qualifier("sessionManager") DefaultWebSessionManager sessionManager){
-        DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
-        manager.setRealm(accountRealm);
-        manager.setSessionManager(sessionManager);
-        return manager;
-    }
-    
-    //注入工厂
-    @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager securityManager
-    ,@Qualifier("kickoutSessionControlFilter") KickoutSessionControlFilter kickoutSessionControlFilter){
-        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
-        factoryBean.setSecurityManager(securityManager);
-        
-        //自定义拦截器限制并发人数,参考博客
-        LinkedHashMap<String, Filter> filtersMap = new LinkedHashMap<>();
-        //限制同一帐号同时在线的个数
-        filtersMap.put("kickout", kickoutSessionControlFilter);
-        factoryBean.setFilters(filtersMap);
-        
-        //权限设置
-        Map<String,String> map = new LinkedHashMap<>();
-        map.put("/admin","anon");
-        map.put("/admin/login.do","anon");
-        map.put("/payRecord/pay.do","anon");
-        map.put("/admin/index.do","kickout,authc");
-        map.put("/view/list.do","kickout,authc");
-        map.put("/line/list.do","kickout,authc");
-        map.put("/order/manageList.do","kickout,authc");
-        map.put("/user/private/**","kickout,authc");
-        map.put("/leaveMessage/**","kickout,authc");
-        map.put("/payRecord/toPay.do","kickout,authc");
-        map.put("/order/**","kickout,authc");
-        map.put("/**","kickout");
-        map.put("/manage","perms[manage]");
-        map.put("/administrator","roles[administrator]");
-        factoryBean.setFilterChainDefinitionMap(map);
-        //设置登陆页面
-        factoryBean.setLoginUrl("/f_login.html");
-        //设置未授权页面
-        factoryBean.setUnauthorizedUrl("/unauth");
-        return factoryBean;
-    }
-    
-    /**
-     * 并发登录控制
-     * @return
-     */
-    @Bean
-    public KickoutSessionControlFilter kickoutSessionControlFilter(@Qualifier("sessionManager") DefaultWebSessionManager sessionManager,
-                                                                   @Qualifier("redisCacheManager") com.yangy.web.realm.RedisCacheManager redisCacheManager){
-        KickoutSessionControlFilter kickoutSessionControlFilter = new KickoutSessionControlFilter();
-        //用于根据会话ID，获取会话进行踢出操作的；
-        kickoutSessionControlFilter.setSessionManager(sessionManager);
-        //使用cacheManager获取相应的cache来缓存用户登录的会话；用于保存用户—会话之间的关系的；
-        kickoutSessionControlFilter.setCacheManager(redisCacheManager);
-        //是否踢出后来登录的，默认是false；即后者登录的用户踢出前者登录的用户；
-        kickoutSessionControlFilter.setKickoutAfter(false);
-        //同一个用户最大的会话数，默认1；比如2的意思是同一个用户允许最多同时两个人登录；
-        kickoutSessionControlFilter.setMaxSession(1);
-        //被踢出后重定向到的地址；
-        kickoutSessionControlFilter.setKickoutUrl("/user/login.do?kickout=1");
-        return kickoutSessionControlFilter;
-    }
 
-    //shiro整合thymeleaf,要想在html中使用shiro，就必须先引进方言。
-    @Bean
-    public ShiroDialect shiroDialect(){
-        return new ShiroDialect();
-    }
+	/**
+	 * 自定义sessionManager
+	 *
+	 * @return
+	 */
+	@Bean
+	public DefaultWebSessionManager sessionManager() {
+		DefaultWebSessionManager shiroSessionManager = new DefaultWebSessionManager();
+		//删除失效session
+		shiroSessionManager.setDeleteInvalidSessions(true);
+		return shiroSessionManager;
+	}
+
+	//注入安全管理器
+	@Bean
+	public DefaultWebSecurityManager securityManager(
+			@Qualifier("accountRealm") AccountRealm accountRealm,
+	        @Qualifier("sessionManager") DefaultWebSessionManager sessionManager) {
+		DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
+		manager.setRealm(accountRealm);
+		manager.setSessionManager(sessionManager);
+		return manager;
+	}
+
+	//注入工厂
+	@Bean
+	public ShiroFilterFactoryBean shiroFilterFactoryBean(
+			@Qualifier("securityManager") DefaultWebSecurityManager securityManager,
+	        @Qualifier("kickoutSessionControlFilter") KickoutSessionControlFilter kickoutSessionControlFilter) {
+		ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
+		factoryBean.setSecurityManager(securityManager);
+
+		//自定义拦截器限制并发人数,参考博客
+		LinkedHashMap<String, Filter> filtersMap = new LinkedHashMap<>();
+		//限制同一帐号同时在线的个数
+		filtersMap.put("kickout", kickoutSessionControlFilter);
+		factoryBean.setFilters(filtersMap);
+
+		//权限设置
+		Map<String, String> map = new LinkedHashMap<>();
+		map.put("/admin", "anon");
+		map.put("/admin/login.do", "anon");
+		map.put("/payRecord/pay.do", "anon");
+		map.put("/admin/index.do", "kickout,authc");
+		map.put("/view/list.do", "kickout,authc");
+		map.put("/line/list.do", "kickout,authc");
+		map.put("/order/manageList.do", "kickout,authc");
+		map.put("/user/private/**", "kickout,authc");
+		map.put("/leaveMessage/**", "kickout,authc");
+		map.put("/payRecord/toPay.do", "kickout,authc");
+		map.put("/order/**", "kickout,authc");
+		map.put("/manage", "perms[manage]");
+		map.put("/administrator", "roles[administrator]");
+		factoryBean.setFilterChainDefinitionMap(map);
+		//设置登陆页面
+		factoryBean.setLoginUrl("/f_login.html");
+		//设置未授权页面
+		factoryBean.setUnauthorizedUrl("/unauth");
+		return factoryBean;
+	}
+
+	/**
+	 * 并发登录控制
+	 *
+	 * @return
+	 */
+	@Bean
+	public KickoutSessionControlFilter kickoutSessionControlFilter(
+			@Qualifier("sessionManager") DefaultWebSessionManager sessionManager,
+			@Qualifier("redisCacheManager") RedisCacheManager redisCacheManager) {
+		KickoutSessionControlFilter kickoutSessionControlFilter = new KickoutSessionControlFilter();
+		//用于根据会话ID，获取会话进行踢出操作的；
+		kickoutSessionControlFilter.setSessionManager(sessionManager);
+		//使用cacheManager获取相应的cache来缓存用户登录的会话；用于保存用户—会话之间的关系的；
+		kickoutSessionControlFilter.setCacheManager(redisCacheManager);
+		//是否踢出后来登录的，默认是false；即后者登录的用户踢出前者登录的用户；
+		kickoutSessionControlFilter.setKickoutAfter(false);
+		//同一个用户最大的会话数，默认1；比如2的意思是同一个用户允许最多同时两个人登录；
+		kickoutSessionControlFilter.setMaxSession(1);
+		//被踢出后重定向到的地址；
+		kickoutSessionControlFilter.setKickoutUrl("/user/login.do?kickout=1");
+		return kickoutSessionControlFilter;
+	}
+
+	//shiro整合thymeleaf,要想在html中使用shiro，就必须先引进方言。
+	@Bean
+	public ShiroDialect shiroDialect() {
+		return new ShiroDialect();
+	}
 }
