@@ -52,7 +52,7 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="/user/index.do">首页</a></li>
                         <li class="dropdown">
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">鹏程美景<b class="caret"></b></a>
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">鹏程美景</a>
                             <ul class="dropdown-menu">
                                 <li><a href="f_payResult.html">热门景点</a></li>
                                 <li><a href="#">景点分类</a></li>
@@ -135,7 +135,7 @@
                 <div class="col-md-4" th:each=" view : ${viewList}">
                     <div class="box-content">
                         <a th:href="${'/view/web/detail.do?viewId='+view.id}">
-                            <img class="img-responsive" style="height: 180px;width: 100%;" th:src="${'/upload/img/'+view.pictureUrl}"  >
+                            <img class="img-responsive" style="height: 180px;width: 100%;border-radius: 7px;" th:src="${'/upload/img/'+view.pictureUrl}"  >
                             <div style="font-size: 20px;font-weight: bolder;border-bottom: solid; margin: 5px 0">
                                 <span  th:text="${view.viewTitle}" ></span>
                                 <span class="price pull-right" style="color: #DAA520;" th:text="${view.price == null or view.price == '' ? '免费' : '￥'+view.price}"></span>

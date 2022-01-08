@@ -59,7 +59,7 @@
                         </li>
                         <li><a href="/user/private/info.do">我的信息</a></li>
                         <li><a href="f_contact.html">联系我们</a></li>
-                        <li th:if="${session} ne null and  ${session.tourist} ne null  and  ${session.tourist.userName} ne null and ${session.tourist.userName} ne ''}">
+                        <li th:if="${session != null and  session.tourist != null  and  session.tourist.userName != null and session.tourist.userName != ''}">
                             <img src="/upload/img/common.jpg" style="height: 40px;width: 40px;margin: 20px 10px;">
                             <span style="color: #13a1fc;">欢迎 </span>
                             <span th:text="${session.tourist.userName}" style="color: white;font-weight: bolder;"></span>
